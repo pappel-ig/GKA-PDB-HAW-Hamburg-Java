@@ -1,0 +1,30 @@
+node {
+    text-background-mode: plain;
+    text-alignment: under;
+}
+
+node.start {
+    fill-color: green;
+}
+
+node.end {
+    fill-color: red;
+}
+
+edge {
+    text-alignment: center;
+    text-size: 20px;
+    text-color: red;
+    text-background-mode: plain;
+}
+
+node {
+    text-size: 20px;
+    text-color: red;
+    text-background-mode: plain;
+}
+
+edge.path {
+    fill-color: purple;
+    size: 5px;
+}

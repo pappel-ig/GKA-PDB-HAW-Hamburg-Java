@@ -1,0 +1,3 @@
+#directed:graph;
+a-b::2;
+a-c::10;

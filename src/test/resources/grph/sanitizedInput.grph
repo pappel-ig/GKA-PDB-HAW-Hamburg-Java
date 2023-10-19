@@ -1,0 +1,4 @@
+#directed:   graph  ;
+Hamburg-        Greifswald::372;
+Greifswald: MK     -Zehdenick::210;
+Zehdenick-Hamburg ( HH )::414          ;

@@ -1,0 +1,4 @@
+#directed:graph;
+a-b;
+b-c;
+c-a;

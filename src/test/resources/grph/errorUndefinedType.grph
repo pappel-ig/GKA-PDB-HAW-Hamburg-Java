@@ -1,0 +1,4 @@
+#bidirectional:graph;
+a-b;
+b-c;
+c-a;
