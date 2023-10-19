@@ -1,0 +1,13 @@
+#undirected:eulG3;
+a  -b;
+b  -c;
+c  -d;
+d  -e;
+a  -e;
+y  -z;
+q  -k;
+k  -t;
+t  -d;
+d  -l;
+l  -q;
+y  -z;
