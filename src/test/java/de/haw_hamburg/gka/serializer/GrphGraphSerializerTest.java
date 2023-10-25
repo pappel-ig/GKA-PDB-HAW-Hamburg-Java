@@ -96,6 +96,7 @@ public class GrphGraphSerializerTest {
         });
     }
 
+    @Test
     public void errorFormatInBody() {
         assertThrows(IllegalArgumentException.class, () -> {
             serializer.readFrom(getFile("grph/errorFormatInBody.grph"));
