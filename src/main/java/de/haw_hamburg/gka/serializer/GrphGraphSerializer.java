@@ -32,7 +32,7 @@ public class GrphGraphSerializer implements GraphSerializer {
 
         private final Scanner scanner;
         private final Pattern HEADER_PATTERN = Pattern.compile("#(?<type>(directed)|(undirected)):(?<name>.+?);");
-        private final Pattern BODY_PATTERN = Pattern.compile("(?<node1>.+?)(?::(?<attr1>).+?)?(?:\\s*-\\s*(?<node2>.+?)(?::(?<attr2>.^:+?))?(\\s+(?<edge>.+?))?(?:::(?<weight>\\d+))?)?\\s*;");
+        private final Pattern BODY_PATTERN = Pattern.compile("(?<node1>[^-:]+?)(?::(?<attr1>[^-:]+?))?(?:\\s*-\\s*(?<node2>[^-:]+?)(?::(?<attr2>[^-:]+?))?(\\s+(?<edge>[^-:]+?))?(?:::(?<weight>\\d+))?)?\\s*;");
         private final GrphStructure graph = new GrphStructure();
 
         public GrphStructure parseGrphFile() {
