@@ -1,0 +1,8 @@
+DGS004
+graph 0 0
+an a
+an b
+an c
+ae ab a > b
+ae bc b > c
+ae ca c > a
