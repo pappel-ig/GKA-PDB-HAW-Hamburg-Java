@@ -25,7 +25,7 @@ public class GrphStructure {
 
     public Graph toGraph() {
         final Graph graph = new MultiGraph(name, false, false);
-        graph.setAttribute("ui.stylesheet", ResourceLoadHelper.loadString("graph.css"));
+        graph.setAttribute("ui.stylesheet", ResourceLoadHelper.loadString("css/graph.css"));
         for (GrphLine line : grphLines) {
             // create node or use existing
             final Node node1 = graph.addNode(line.getNode1());
@@ -48,9 +48,5 @@ public class GrphStructure {
             }
         }
         return graph;
-    }
-
-    public static GrphStructure from(Graph graph) {
-        return null;
     }
 }

@@ -1,0 +1,12 @@
+node {
+    text-background-mode: plain;
+    text-alignment: under;
+}
+
+node.start {
+    fill-color: green;
+}
+
+node.end {
+    fill-color: red;
+}
