@@ -38,7 +38,7 @@ public class GraphControlsController extends AbstractGraphController {
     public void openFile() {
         final FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Graph auswählen");
-        fileChooser.setInitialDirectory(new File("C:\\Users\\Jonas\\Programming\\gka\\src\\main\\resources\\graphs"));
+//        fileChooser.setInitialDirectory(new File("C:\\Users\\Jonas\\Programming\\gka\\src\\main\\resources\\graphs"));
         final File chosen = fileChooser.showOpenDialog(stage);
         if (Objects.nonNull(chosen)) {
             model.getFile().setValue(chosen);

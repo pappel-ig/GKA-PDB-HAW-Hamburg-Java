@@ -12,10 +12,6 @@ public class GraphDjikstraApplication extends Application {
     @SneakyThrows
     public static void main(String[] args) {
         launch();
-//        System.setProperty("org.graphstream.ui", "javafx");
-//        GrphGraphSerializer serializer = new GrphGraphSerializer();
-//        Graph graph = serializer.readFrom(ResourceLoadHelper.loadFile("graph01.grph")).toGraph();
-//        graph.display();
     }
 
     @Override

@@ -15,11 +15,4 @@ public class ResourceLoadHelper {
         final URI resource = Objects.requireNonNull(ResourceLoadHelper.class.getClassLoader().getResource(name), String.format("resource with name '%s' not found", name)).toURI();
         return Files.readString(Path.of(resource));
     }
-
-    @SneakyThrows
-    public static File loadFile(String name) {
-        final URI resource = Objects.requireNonNull(ResourceLoadHelper.class.getClassLoader().getResource(name), String.format("resource with name '%s' not found", name)).toURI();
-        return new File(resource);
-    }
-
 }
