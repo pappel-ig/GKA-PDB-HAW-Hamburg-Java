@@ -21,15 +21,16 @@ public class DjikstraAlgorithm {
         nodePriorityQueue = new PriorityQueue<>(Comparator.comparingInt(this::abstand));
         for (Node node : graph) {
             if (!node.equals(v_1)) node.setAttribute("abstand", Integer.MAX_VALUE);
-            nodePriorityQueue.add(node);
+//            nodePriorityQueue.add(node);
         }
+        nodePriorityQueue.add(v_1);
     }
 
     public void calculate(final Node v_1) {
         initialize(v_1);
         while (!nodePriorityQueue.isEmpty()) {
             Node u = nodePriorityQueue.poll();
-            u.neighborNodes().filter(u::hasEdgeToward).forEach(v -> {
+            u.neighborNodes().filter(u::hasEdgeToward).filter(node -> !node.equals(v_1)).forEach(v -> {
                 final int distanceBetweenNode = getDistanceBetweenNode(u, v);
                 if (distanceBetweenNode < abstand(v)) {
                     v.setAttribute("abstand", distanceBetweenNode);
