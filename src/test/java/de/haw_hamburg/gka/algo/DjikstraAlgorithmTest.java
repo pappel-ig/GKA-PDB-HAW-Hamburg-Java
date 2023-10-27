@@ -92,6 +92,50 @@ public class DjikstraAlgorithmTest {
         entfernung(graph, "D", Integer.MAX_VALUE);
     }
 
+    @Test
+    @SneakyThrows
+    public void twoIdealPaths() {
+        final Graph graph = serializer.readFrom(getFile("djikstra/twoIdealPaths.grph")).toGraph();
+        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm(graph);
+        algorithm.calculate(graph.getNode("A"));
+
+        vorgaenger(graph, "A", "A");
+        vorgaenger(graph, "B", "A");
+        vorgaenger(graph, "C", "A");
+        vorgaenger(graph, "D", "B");
+        vorgaenger(graph, "E", "C");
+        vorgaenger(graph, "F", "D");
+
+        entfernung(graph, "A", 0);
+        entfernung(graph, "B", 1);
+        entfernung(graph, "C", 1);
+        entfernung(graph, "D", 2);
+        entfernung(graph, "E", 2);
+        entfernung(graph, "F", 3);
+    }
+
+    @Test
+    @SneakyThrows
+    public void weightShouldBeUsedInCalculation() {
+        final Graph graph = serializer.readFrom(getFile("djikstra/weightShouldBeUsedInCalculation.grph")).toGraph();
+        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm(graph);
+        algorithm.calculate(graph.getNode("A"));
+
+        vorgaenger(graph, "A", "A");
+        vorgaenger(graph, "B", "A");
+        vorgaenger(graph, "C", "A");
+        vorgaenger(graph, "D", "B");
+        vorgaenger(graph, "E", "C");
+        vorgaenger(graph, "F", "E");
+
+        entfernung(graph, "A", 0);
+        entfernung(graph, "B", 1);
+        entfernung(graph, "C", 1);
+        entfernung(graph, "D", 3);
+        entfernung(graph, "E", 2);
+        entfernung(graph, "F", 3);
+    }
+
     private void vorgaenger(Graph graph, String node, String expectedVorgaenger) {
         assertThat(graph.getNode(node).getAttribute("vorgänger", Node.class)).isEqualTo(graph.getNode(expectedVorgaenger));
     }
