@@ -4,39 +4,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.haw_hamburg.gka.gui.GraphControlsController">
-   <Button fx:id="loadFile" layoutX="34.0" layoutY="65.0" mnemonicParsing="false" onAction="#openFile" prefHeight="26.0"
-           prefWidth="180.0" text="Graph laden"/>
-   <Label alignment="CENTER" layoutX="33.0" layoutY="14.0" prefHeight="18.0" prefWidth="180.0" text="Graph"
-          textAlignment="CENTER">
+<AnchorPane prefHeight="600.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.haw_hamburg.gka.gui.GraphControlsController">
+   <Button fx:id="loadFile" layoutX="34.0" layoutY="65.0" mnemonicParsing="false" onAction="#openFile" prefHeight="26.0" prefWidth="180.0" text="Graph laden" />
+   <Label alignment="CENTER" layoutX="33.0" layoutY="14.0" prefHeight="18.0" prefWidth="180.0" text="Graph" textAlignment="CENTER">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
-   <Separator layoutX="10.0" layoutY="97.0" prefHeight="18.0" prefWidth="230.0"/>
-   <Label alignment="CENTER" layoutX="35.0" layoutY="116.0" prefHeight="18.0" prefWidth="180.0" text="Djikstra"
-          textAlignment="CENTER">
+   <Separator layoutX="10.0" layoutY="97.0" prefHeight="18.0" prefWidth="230.0" />
+   <Label alignment="CENTER" layoutX="35.0" layoutY="116.0" prefHeight="18.0" prefWidth="180.0" text="Djikstra" textAlignment="CENTER">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
-   <Label layoutX="35.0" layoutY="146.0" text="Start"/>
-   <ChoiceBox fx:id="source" layoutX="33.0" layoutY="164.0" prefHeight="26.0" prefWidth="180.0"/>
-   <Label layoutX="35.0" layoutY="190.0" text="Ziel"/>
-   <ChoiceBox fx:id="target" layoutX="33.0" layoutY="208.0" prefHeight="26.0" prefWidth="180.0"/>
-   <Button fx:id="start" layoutX="35.0" layoutY="248.0" mnemonicParsing="false" text="Berechnen"/>
-   <Separator layoutX="10.0" layoutY="287.0" prefHeight="18.0" prefWidth="230.0"/>
-   <Label alignment="CENTER" layoutX="33.0" layoutY="313.0" prefHeight="18.0" prefWidth="180.0" text="Kürzeste Wege"
-          textAlignment="CENTER">
+   <Label layoutX="35.0" layoutY="146.0" text="Start" />
+   <ChoiceBox fx:id="source" layoutX="33.0" layoutY="164.0" prefHeight="26.0" prefWidth="180.0" />
+   <Label layoutX="35.0" layoutY="190.0" text="Ziel" />
+   <ChoiceBox fx:id="target" layoutX="33.0" layoutY="208.0" prefHeight="26.0" prefWidth="180.0" />
+   <Button fx:id="start" layoutX="35.0" layoutY="248.0" mnemonicParsing="false" text="Berechnen" />
+   <Separator layoutX="10.0" layoutY="287.0" prefHeight="18.0" prefWidth="230.0" />
+   <Label alignment="CENTER" layoutX="33.0" layoutY="313.0" prefHeight="18.0" prefWidth="180.0" text="Kürzeste Wege" textAlignment="CENTER">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
-   <ChoiceBox fx:id="paths" layoutX="32.0" layoutY="371.0" prefHeight="26.0" prefWidth="180.0"/>
-   <Label layoutX="28.0" layoutY="423.0" text="Status: "/>
-   <Label layoutX="30.0" layoutY="405.0" text="Länge:"/>
-   <Label layoutX="34.0" layoutY="354.0" text="gefundene Wege:"/>
-   <Label fx:id="length" layoutX="81.0" layoutY="405.0"/>
-   <Label fx:id="status" layoutX="81.0" layoutY="423.0"/>
+   <Label layoutX="28.0" layoutY="361.0" text="Status: " />
+   <Label layoutX="29.0" layoutY="343.0" text="Länge:" />
+   <Label fx:id="length" layoutX="80.0" layoutY="343.0" />
+   <Label fx:id="status" layoutX="80.0" layoutY="361.0" />
 </AnchorPane>

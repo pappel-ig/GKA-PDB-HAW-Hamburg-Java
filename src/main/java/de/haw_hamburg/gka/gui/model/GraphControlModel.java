@@ -20,7 +20,6 @@ public class GraphControlModel {
     private ObservableList<Node> nodes = FXCollections.observableArrayList();
     private ObjectProperty<Node> source = new SimpleObjectProperty<>();
     private ObjectProperty<Node> target = new SimpleObjectProperty<>();
-    private ObservableList<Path> paths = FXCollections.observableArrayList();
     private IntegerProperty length = new SimpleIntegerProperty();
     private StringProperty status = new SimpleStringProperty();
 
