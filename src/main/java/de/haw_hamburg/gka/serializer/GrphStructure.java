@@ -42,7 +42,7 @@ public class GrphStructure {
                 // set attribute
                 if (Objects.nonNull(line.getAttr2())) node2.setAttribute(String.format("#%s", line.getAttr2()));
                 // set edge label
-                if (Objects.nonNull(line.getEdge())) edge.setAttribute("ui.label", line.getEdge());
+                edge.setAttribute("ui.label", String.valueOf(Math.max(line.getWeight(), 1)));
                 // set label for node2
                 node2.setAttribute("ui.label", node2.getId());
             }

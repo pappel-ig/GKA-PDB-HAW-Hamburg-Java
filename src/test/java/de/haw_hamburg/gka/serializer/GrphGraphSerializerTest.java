@@ -1,13 +1,13 @@
 package de.haw_hamburg.gka.serializer;
 
 import lombok.SneakyThrows;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.util.List;
 
+import static de.haw_hamburg.gka.TestHelper.getFile;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GrphGraphSerializerTest {
 
@@ -90,6 +90,16 @@ public class GrphGraphSerializerTest {
 
     @Test
     @SneakyThrows
+    public void treeGraph() {
+        GrphStructure expectedStructure = new GrphStructure("graph", true, List.of(
+                GrphLine.builder().node1("a").node2("b").weight(2).build(),
+                GrphLine.builder().node1("a").node2("c").weight(10).build()
+        ));
+        assertThat(serializer.readFrom(getFile("grph/treeGraph.grph"))).isEqualTo(expectedStructure);
+    }
+
+    @Test
+    @SneakyThrows
     public void errorUndefinedType() {
         assertThrows(IllegalArgumentException.class, () -> {
             serializer.readFrom(getFile("grph/errorUndefinedType.grph"));
@@ -101,10 +111,5 @@ public class GrphGraphSerializerTest {
         assertThrows(IllegalArgumentException.class, () -> {
             serializer.readFrom(getFile("grph/errorFormatInBody.grph"));
         });
-    }
-
-    @SneakyThrows
-    public File getFile(String name) {
-        return new File(this.getClass().getClassLoader().getResource(name).toURI());
     }
 }

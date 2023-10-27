@@ -13,17 +13,19 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     implementation 'org.graphstream:gs-core:2.0'
     implementation 'org.graphstream:gs-ui-javafx:2.0'
-    testImplementation 'org.projectlombok:lombok:1.18.26'
-
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.projectlombok:lombok:1.18.26'
     testImplementation 'org.assertj:assertj-core:3.24.2'
-
 }
 
 mainClassName = 'de.haw_hamburg.gka.GraphDjikstraApplication'

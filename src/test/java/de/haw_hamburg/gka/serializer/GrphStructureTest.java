@@ -1,13 +1,14 @@
 package de.haw_hamburg.gka.serializer;
 
 import org.graphstream.graph.Graph;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatStream;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GrphStructureTest {
 
@@ -79,7 +80,7 @@ public class GrphStructureTest {
         assertThat(actual.getNode("b")).isNotNull();
         assertThat(actual.getNode("b").getAttribute("ui.label")).isEqualTo("b");
         assertTrue(actual.getNode("a").hasEdgeToward("b"));
-        assertThat(actual.getNode("a").getEdgeToward("b").getAttribute("ui.label")).isEqualTo("a-b");
+        assertThat(actual.getNode("a").getEdgeToward("b").getAttribute("ui.label")).isEqualTo("1");
     }
 
 }

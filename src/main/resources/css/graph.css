@@ -10,3 +10,8 @@ node.start {
 node.end {
     fill-color: red;
 }
+
+edge {
+    text-alignment: center;
+    text-background-mode: plain;
+}
