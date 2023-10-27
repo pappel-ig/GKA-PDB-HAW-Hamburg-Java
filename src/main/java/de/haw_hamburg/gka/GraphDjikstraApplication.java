@@ -2,6 +2,7 @@ package de.haw_hamburg.gka;
 
 import de.haw_hamburg.gka.gui.MainViewController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,5 +22,6 @@ public class GraphDjikstraApplication extends Application {
         final MainViewController controller = myLoader.getController();
         controller.initialize(primaryStage);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
 }

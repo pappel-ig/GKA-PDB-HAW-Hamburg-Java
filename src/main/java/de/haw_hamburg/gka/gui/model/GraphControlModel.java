@@ -1,5 +1,6 @@
 package de.haw_hamburg.gka.gui.model;
 
+import de.haw_hamburg.gka.algo.PathStatus;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,6 @@ public class GraphControlModel {
     private ObjectProperty<Node> source = new SimpleObjectProperty<>();
     private ObjectProperty<Node> target = new SimpleObjectProperty<>();
     private IntegerProperty length = new SimpleIntegerProperty();
-    private StringProperty status = new SimpleStringProperty();
+    private ObjectProperty<PathStatus> status = new SimpleObjectProperty<>();
 
 }

@@ -1,7 +1,9 @@
 package de.haw_hamburg.gka.gui;
 
+import de.haw_hamburg.gka.algo.PathStatus;
 import de.haw_hamburg.gka.gui.model.AbstractGraphController;
 import de.haw_hamburg.gka.gui.model.GraphControlModel;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -25,8 +27,18 @@ public class GraphControlsController extends AbstractGraphController {
     public void setModel(GraphControlModel model, Stage stage) {
         super.setModel(model, stage);
         model.getNodes().addListener(this::newNodes);
+        model.getStatus().addListener(this::statusChanged);
+        model.getLength().addListener(this::lengthChanged);
         source.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> model.getSource().setValue(newValue));
         target.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> model.getTarget().setValue(newValue));
+    }
+
+    private void statusChanged(ObservableValue<? extends PathStatus> observableValue, PathStatus old, PathStatus now) {
+        status.setText(now.name());
+    }
+
+    private void lengthChanged(ObservableValue<? extends Number> observableValue, Number old, Number now) {
+        length.setText(now.toString());
     }
 
     private void newNodes(ListChangeListener.Change<? extends Node> change) {

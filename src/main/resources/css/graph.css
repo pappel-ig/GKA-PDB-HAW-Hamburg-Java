@@ -15,3 +15,7 @@ edge {
     text-alignment: center;
     text-background-mode: plain;
 }
+
+edge.path {
+    fill-color: purple;
+}
