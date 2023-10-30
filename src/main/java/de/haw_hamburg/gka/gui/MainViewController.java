@@ -13,7 +13,6 @@ public class MainViewController {
 
     @FXML public GraphVisualizationController graphVisualizationController;
 
-
     public void initialize(Stage stage) {
         GraphControlModel model = new GraphControlModel();
         graphControlsController.setModel(model, stage);

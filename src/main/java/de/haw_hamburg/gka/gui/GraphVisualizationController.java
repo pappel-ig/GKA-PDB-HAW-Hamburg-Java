@@ -16,6 +16,7 @@ import org.graphstream.graph.Path;
 import org.graphstream.ui.fx_viewer.FxViewPanel;
 import org.graphstream.ui.fx_viewer.FxViewer;
 import org.graphstream.ui.javafx.FxGraphRenderer;
+import org.graphstream.ui.view.Viewer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,48 +36,63 @@ public class GraphVisualizationController extends AbstractGraphController {
         model.getFile().addListener(this::newFileChosen);
         model.getSource().addListener(this::newSourceChosen);
         model.getTarget().addListener(this::newTargetChosen);
-        model.getStatus().set(djikstraPathResolver.getStatus());
     }
 
     private void newSourceChosen(ObservableValue<? extends Node> observableValue, Node old, Node now) {
-        if (Objects.nonNull(path)) {
-            for (Edge edge : path.getEdgePath()) {
-                edge.removeAttribute("ui.class");
-            }
-        }
+        resetPath();
         if (Objects.nonNull(old)) old.removeAttribute("ui.class");
-        if (Objects.nonNull(now)) now.setAttribute("ui.class", "start");
-        djikstraPathResolver.startFrom(now);
-        model.getStatus().set(djikstraPathResolver.getStatus());
+        if (Objects.nonNull(now)) {
+            now.setAttribute("ui.class", "start");
+            djikstraPathResolver.startFrom(now);
+        }
+        if (Objects.nonNull(model.getTarget().get())) {
+            path = djikstraPathResolver.getPathTo(model.getTarget().get());
+            model.getLength().set(path.getEdgeCount());
+        }
+        renderPath();
     }
 
     private void newTargetChosen(ObservableValue<? extends Node> observableValue, Node old, Node now) {
+        resetPath();
+        if (Objects.nonNull(old)) old.removeAttribute("ui.class");
+        if (Objects.nonNull(now)) {
+            now.setAttribute("ui.class", "end");
+            path = djikstraPathResolver.getPathTo(now);
+            model.getLength().set(path.getEdgeCount());
+        }
+        renderPath();
+    }
+
+    private void renderPath() {
+        if (Objects.nonNull(path)) {
+            for (Edge edge : path.getEdgePath()) {
+                edge.setAttribute("ui.class", "path");
+            }
+        }
+    }
+
+    private void resetPath() {
         if (Objects.nonNull(path)) {
             for (Edge edge : path.getEdgePath()) {
                 edge.setAttribute("ui.class", "");
             }
         }
-        if (Objects.nonNull(old)) old.removeAttribute("ui.class");
-        if (Objects.nonNull(now)) now.setAttribute("ui.class", "end");
-        path = djikstraPathResolver.getPathTo(now);
-        for (Edge edge : path.getEdgePath()) {
-            edge.setAttribute("ui.class", "path");
-        }
-        model.getStatus().set(djikstraPathResolver.getStatus());
-        model.getLength().set(path.getEdgeCount());
     }
 
     @SneakyThrows
     private void newFileChosen(ObservableValue<? extends File> observableValue, File old, File now) {
+        model.getSource().set(null);
+        model.getTarget().set(null);
+        model.getLength().set(0);
+        djikstraPathResolver.reset();
         final Graph loadedGraph = serializer.readFrom(now).toGraph();
         model.getNodes().clear();
         for (Node node : loadedGraph) {
             model.getNodes().add(node);
         }
-        FxViewer fxViewer = new FxViewer(loadedGraph, FxViewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
+        FxViewer fxViewer = new FxViewer(loadedGraph, FxViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         fxViewer.enableAutoLayout();
         pane.getChildren().clear();
         pane.getChildren().add((FxViewPanel) fxViewer.addDefaultView(false, new FxGraphRenderer()));
-        model.getStatus().set(djikstraPathResolver.getStatus());
     }
 }

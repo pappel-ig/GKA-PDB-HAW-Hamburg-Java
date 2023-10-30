@@ -21,15 +21,12 @@
    <ChoiceBox fx:id="source" layoutX="33.0" layoutY="164.0" prefHeight="26.0" prefWidth="180.0" />
    <Label layoutX="35.0" layoutY="190.0" text="Ziel" />
    <ChoiceBox fx:id="target" layoutX="33.0" layoutY="208.0" prefHeight="26.0" prefWidth="180.0" />
-   <Button fx:id="start" layoutX="35.0" layoutY="248.0" mnemonicParsing="false" text="Berechnen" />
-   <Separator layoutX="10.0" layoutY="287.0" prefHeight="18.0" prefWidth="230.0" />
-   <Label alignment="CENTER" layoutX="33.0" layoutY="313.0" prefHeight="18.0" prefWidth="180.0" text="Kürzeste Wege" textAlignment="CENTER">
+   <Separator layoutX="10.0" layoutY="254.0" prefHeight="18.0" prefWidth="230.0" />
+   <Label alignment="CENTER" layoutX="34.0" layoutY="272.0" prefHeight="18.0" prefWidth="180.0" text="Kürzeste Wege" textAlignment="CENTER">
       <font>
          <Font size="20.0" />
       </font>
    </Label>
-   <Label layoutX="28.0" layoutY="361.0" text="Status: " />
-   <Label layoutX="29.0" layoutY="343.0" text="Länge:" />
-   <Label fx:id="length" layoutX="80.0" layoutY="343.0" />
-   <Label fx:id="status" layoutX="80.0" layoutY="361.0" />
+   <Label layoutX="28.0" layoutY="312.0" text="Länge:" />
+   <Label fx:id="length" layoutX="79.0" layoutY="312.0" />
 </AnchorPane>
