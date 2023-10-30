@@ -10,13 +10,13 @@ import lombok.SneakyThrows;
 
 public class GraphDjikstraApplication extends Application {
 
-    @SneakyThrows
     public static void main(String[] args) {
         launch();
     }
 
+    @SneakyThrows
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         final FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/gui/mainView.fxml"));
         primaryStage.setScene(new Scene(myLoader.load()));
         final MainViewController controller = myLoader.getController();

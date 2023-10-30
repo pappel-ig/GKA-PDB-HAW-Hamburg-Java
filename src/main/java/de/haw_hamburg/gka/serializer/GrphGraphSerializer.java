@@ -15,19 +15,13 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GrphGraphSerializer implements GraphSerializer {
+public class GrphGraphSerializer {
 
-    @Override
     public GrphStructure readFrom(File file) throws FileNotFoundException {
         final Scanner graphScanner = new Scanner(file);
         graphScanner.useDelimiter(System.lineSeparator());
         final GrphFileParser parser = new GrphFileParser(graphScanner);
         return parser.parseGrphFile();
-    }
-
-    @Override
-    public InputStream saveTo(Graph graph) {
-        return null;
     }
 
     @RequiredArgsConstructor

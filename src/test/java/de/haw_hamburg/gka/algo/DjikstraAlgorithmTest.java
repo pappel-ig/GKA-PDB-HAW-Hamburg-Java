@@ -4,6 +4,7 @@ import de.haw_hamburg.gka.serializer.GrphGraphSerializer;
 import lombok.SneakyThrows;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
+import org.graphstream.graph.Path;
 import org.junit.jupiter.api.Test;
 
 
@@ -18,8 +19,8 @@ public class DjikstraAlgorithmTest {
     @SneakyThrows
     public void allEdgesAreConsidered() {
         final Graph graph = serializer.readFrom(getFile("djikstra/allEdgesAreConsidered.grph")).toGraph();
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm(graph);
-        algorithm.calculate(graph.getNode("A"));
+        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
         vorgaenger(graph, "A", "A");
         vorgaenger(graph, "B", "A");
@@ -40,8 +41,8 @@ public class DjikstraAlgorithmTest {
     @SneakyThrows
     public void firstPathCanOverrideLongPath() {
         final Graph graph = serializer.readFrom(getFile("djikstra/firstPathCanOverrideLongPath.grph")).toGraph();
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm(graph);
-        algorithm.calculate(graph.getNode("A"));
+        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
         vorgaenger(graph, "A", "A");
         vorgaenger(graph, "B", "A");
@@ -62,8 +63,8 @@ public class DjikstraAlgorithmTest {
     @SneakyThrows
     public void shouldNotTraverseInDirectedGraph() {
         final Graph graph = serializer.readFrom(getFile("djikstra/shouldNotTraverseInDirectedGraph.grph")).toGraph();
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm(graph);
-        algorithm.calculate(graph.getNode("A"));
+        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        algorithm.getPathTo(graph.getNode("A"), graph.getNode("C"));
 
         vorgaenger(graph, "A", "A");
         vorgaenger(graph, "B", null);
@@ -78,8 +79,8 @@ public class DjikstraAlgorithmTest {
     @SneakyThrows
     public void noPathExists() {
         final Graph graph = serializer.readFrom(getFile("djikstra/noPathExists.grph")).toGraph();
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm(graph);
-        algorithm.calculate(graph.getNode("A"));
+        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        algorithm.getPathTo(graph.getNode("A"), graph.getNode("B"));
 
         vorgaenger(graph, "A", "A");
         vorgaenger(graph, "B", "A");
@@ -96,8 +97,8 @@ public class DjikstraAlgorithmTest {
     @SneakyThrows
     public void twoIdealPaths() {
         final Graph graph = serializer.readFrom(getFile("djikstra/twoIdealPaths.grph")).toGraph();
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm(graph);
-        algorithm.calculate(graph.getNode("A"));
+        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
         vorgaenger(graph, "A", "A");
         vorgaenger(graph, "B", "A");
@@ -118,8 +119,8 @@ public class DjikstraAlgorithmTest {
     @SneakyThrows
     public void weightShouldBeUsedInCalculation() {
         final Graph graph = serializer.readFrom(getFile("djikstra/weightShouldBeUsedInCalculation.grph")).toGraph();
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm(graph);
-        algorithm.calculate(graph.getNode("A"));
+        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
         vorgaenger(graph, "A", "A");
         vorgaenger(graph, "B", "A");

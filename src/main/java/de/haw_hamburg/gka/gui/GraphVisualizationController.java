@@ -1,7 +1,6 @@
 package de.haw_hamburg.gka.gui;
 
 import de.haw_hamburg.gka.algo.DjikstraAlgorithm;
-import de.haw_hamburg.gka.algo.DjikstraPathResolver;
 import de.haw_hamburg.gka.gui.model.AbstractGraphController;
 import de.haw_hamburg.gka.gui.model.GraphControlModel;
 import de.haw_hamburg.gka.serializer.GrphGraphSerializer;
@@ -16,17 +15,15 @@ import org.graphstream.graph.Path;
 import org.graphstream.ui.fx_viewer.FxViewPanel;
 import org.graphstream.ui.fx_viewer.FxViewer;
 import org.graphstream.ui.javafx.FxGraphRenderer;
-import org.graphstream.ui.view.Viewer;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileNotFoundException;
 import java.util.Objects;
 
 public class GraphVisualizationController extends AbstractGraphController {
 
     private final GrphGraphSerializer serializer = new GrphGraphSerializer();
-    private final DjikstraPathResolver djikstraPathResolver = new DjikstraPathResolver();
+    private final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
     private Path path;
     public AnchorPane pane;
 
@@ -41,12 +38,9 @@ public class GraphVisualizationController extends AbstractGraphController {
     private void newSourceChosen(ObservableValue<? extends Node> observableValue, Node old, Node now) {
         resetPath();
         if (Objects.nonNull(old)) old.removeAttribute("ui.class");
-        if (Objects.nonNull(now)) {
-            now.setAttribute("ui.class", "start");
-            djikstraPathResolver.startFrom(now);
-        }
+        if (Objects.nonNull(now)) now.setAttribute("ui.class", "start");
         if (Objects.nonNull(model.getTarget().get())) {
-            path = djikstraPathResolver.getPathTo(model.getTarget().get());
+            path = algorithm.getPathTo(now, model.getTarget().get());
             model.getLength().set(path.getEdgeCount());
         }
         renderPath();
@@ -57,8 +51,10 @@ public class GraphVisualizationController extends AbstractGraphController {
         if (Objects.nonNull(old)) old.removeAttribute("ui.class");
         if (Objects.nonNull(now)) {
             now.setAttribute("ui.class", "end");
-            path = djikstraPathResolver.getPathTo(now);
-            model.getLength().set(path.getEdgeCount());
+            if (Objects.nonNull(model.getSource().get())) {
+                path = algorithm.getPathTo(model.getSource().get(), now);
+                model.getLength().set(path.getEdgeCount());
+            }
         }
         renderPath();
     }
@@ -79,13 +75,17 @@ public class GraphVisualizationController extends AbstractGraphController {
         }
     }
 
-    @SneakyThrows
     private void newFileChosen(ObservableValue<? extends File> observableValue, File old, File now) {
+        final Graph loadedGraph;
+        try {
+            loadedGraph = serializer.readFrom(now).toGraph();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+            return;
+        }
         model.getSource().set(null);
         model.getTarget().set(null);
         model.getLength().set(0);
-        djikstraPathResolver.reset();
-        final Graph loadedGraph = serializer.readFrom(now).toGraph();
         model.getNodes().clear();
         for (Node node : loadedGraph) {
             model.getNodes().add(node);
