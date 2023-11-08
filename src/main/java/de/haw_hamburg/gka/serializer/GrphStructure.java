@@ -10,6 +10,7 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class GrphStructure {
             // create node or use existing
             final Node node1 = graph.addNode(line.getNode1());
             // set attribute node1
-            if (Objects.nonNull(line.getAttr1())) node1.setAttribute(String.format("#%s", line.getAttr1()));
+            if (Objects.nonNull(line.getAttr1())) node1.setAttribute("attribute", line.getAttr1());
             // set label for node1
             node1.setAttribute("ui.label", node1.getId());
             if (Objects.nonNull(line.getNode2())) {
@@ -40,7 +41,7 @@ public class GrphStructure {
                 // set weight
                 edge.setAttribute("weight", Math.max(line.getWeight(), 1));
                 // set attribute
-                if (Objects.nonNull(line.getAttr2())) node2.setAttribute(String.format("#%s", line.getAttr2()));
+                if (Objects.nonNull(line.getAttr2())) node2.setAttribute("attribute", line.getAttr2());
                 // set edge label
                 edge.setAttribute("ui.label", String.valueOf(Math.max(line.getWeight(), 1)));
                 // set label for node2
@@ -48,5 +49,17 @@ public class GrphStructure {
             }
         }
         return graph;
+    }
+
+    public static GrphStructure from(Graph graph) {
+        return GrphStructure.builder()
+                .name(graph.getId())
+                .directed(graph.getEdgeCount() > 0 && graph.getEdge(0).isDirected())
+                .grphLines(exractLinesFromGraph(graph))
+                .build();
+    }
+
+    private static List<GrphLine> exractLinesFromGraph(Graph graph) {
+        return graph.edges().map(GrphLine::from).toList();
     }
 }
