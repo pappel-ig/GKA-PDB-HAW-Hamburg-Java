@@ -19,7 +19,7 @@ public class GraphBuilder {
         this.directed = directed;
     }
 
-    public GraphLineBuilder edge(String node1) {
+    public GraphLineBuilder node1(String node1) {
         return new GraphLineBuilder(this, graph, directed, node1);
     }
 
