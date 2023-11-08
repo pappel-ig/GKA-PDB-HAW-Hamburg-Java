@@ -22,9 +22,9 @@ public class GrphGraphSerializerTest {
         @SneakyThrows
         public void directedNodes() {
             GrphStructure expectedStructure = GrphBuilder.builder("graph", true)
-                    .node1("a").node2("b").next()
-                    .node1("b").node2("c").next()
-                    .node1("c").node2("a").next()
+                    .node1("a").node2("b").weight(0).next()
+                    .node1("b").node2("c").weight(0).next()
+                    .node1("c").node2("a").weight(0).next()
                     .grph();
             assertThat(serializer.readFrom(getFile("grph/directedNode.grph"))).isEqualTo(expectedStructure);
         }
@@ -33,9 +33,9 @@ public class GrphGraphSerializerTest {
         @SneakyThrows
         public void undirectedNodes() {
             GrphStructure expectedStructure = GrphBuilder.builder("graph", false)
-                    .node1("a").node2("b").next()
-                    .node1("b").node2("c").next()
-                    .node1("c").node2("a").next()
+                    .node1("a").node2("b").weight(0).next()
+                    .node1("b").node2("c").weight(0).next()
+                    .node1("c").node2("a").weight(0).next()
                     .grph();
             assertThat(serializer.readFrom(getFile("grph/undirectedNode.grph"))).isEqualTo(expectedStructure);
         }
@@ -66,7 +66,7 @@ public class GrphGraphSerializerTest {
         @SneakyThrows
         public void nodesWithAttributes() {
             GrphStructure expectedStructure = GrphBuilder.builder("graph", true)
-                    .node1("a").attr1("1").node2("b").attr2("2").next().grph();
+                    .node1("a").attr1("1").node2("b").attr2("2").weight(0).next().grph();
             assertThat(serializer.readFrom(getFile("grph/nodesWithAttributes.grph"))).isEqualTo(expectedStructure);
         }
 
@@ -74,9 +74,9 @@ public class GrphGraphSerializerTest {
         @SneakyThrows
         public void edgeWithLabel() {
             GrphStructure expectedStructure = GrphBuilder.builder("graph", true)
-                    .node1("a").node2("b").edge("a zu b").next()
-                    .node1("b").node2("c").edge("b zu c").next()
-                    .node1("c").node2("a").edge("c zu a").next()
+                    .node1("a").node2("b").edge("a zu b").weight(0).next()
+                    .node1("b").node2("c").edge("b zu c").weight(0).next()
+                    .node1("c").node2("a").edge("c zu a").weight(0).next()
                     .grph();
             assertThat(serializer.readFrom(getFile("grph/edgeWithLabel.grph"))).isEqualTo(expectedStructure);
         }

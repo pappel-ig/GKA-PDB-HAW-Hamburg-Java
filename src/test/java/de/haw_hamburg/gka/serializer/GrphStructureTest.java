@@ -1,5 +1,7 @@
 package de.haw_hamburg.gka.serializer;
 
+import de.haw_hamburg.gka.GraphBuilder;
+import de.haw_hamburg.gka.GrphBuilder;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.MultiGraph;
@@ -18,9 +20,9 @@ public class GrphStructureTest {
     class ToGraph {
         @Test
         public void directedNodeTest() {
-            Graph actual = new GrphStructure("graph", true, List.of(
-                    GrphLine.builder().node1("a").node2("b").build()
-            )).toGraph();
+            GrphStructure grphStructure = GrphBuilder.builder("graph", true)
+                    .node1("a").node2("b").next().grph();
+            Graph actual = grphStructure.toGraph();
 
             assertThat(actual.getId()).isEqualTo("graph");
             assertThat(actual.getNode("a")).isNotNull();
@@ -31,9 +33,9 @@ public class GrphStructureTest {
 
         @Test
         public void undirectedNodeTest() {
-            Graph actual = new GrphStructure("graph", false, List.of(
-                    GrphLine.builder().node1("a").node2("b").build()
-            )).toGraph();
+            GrphStructure grphStructure = GrphBuilder.builder("graph", false)
+                    .node1("a").node2("b").next().grph();
+            Graph actual = grphStructure.toGraph();
 
             assertThat(actual.getId()).isEqualTo("graph");
             assertThat(actual.getNode("a")).isNotNull();
@@ -44,9 +46,9 @@ public class GrphStructureTest {
 
         @Test
         public void weightedNodes() {
-            Graph actual = new GrphStructure("graph", false, List.of(
-                    GrphLine.builder().node1("a").node2("b").weight(5).build()
-            )).toGraph();
+            GrphStructure grphStructure = GrphBuilder.builder("graph", false)
+                    .node1("a").node2("b").weight(5).next().grph();
+            Graph actual = grphStructure.toGraph();
 
             assertThat(actual.getId()).isEqualTo("graph");
             assertThat(actual.getNode("a")).isNotNull();
@@ -57,10 +59,12 @@ public class GrphStructureTest {
 
         @Test
         public void nodesAttributes() {
-            Graph actual = new GrphStructure("graph", false, List.of(
-                    GrphLine.builder().node1("a").attr1("1").node2("b").attr2("oldB").build(),
-                    GrphLine.builder().node1("b").attr1("newB").node2("c").attr2("3").build()
-            )).toGraph();
+            GrphStructure grphStructure = GrphBuilder.builder("graph", false)
+                    .node1("a").attr1("1").node2("b").attr2("oldB").next()
+                    .node1("b").attr1("newB").node2("c").attr2("3").next()
+                    .grph();
+            Graph actual = grphStructure.toGraph();
+
             assertThat(actual.getId()).isEqualTo("graph");
             assertThat(actual.getNode("a")).isNotNull();
             assertThat(actual.getNode("b")).isNotNull();
@@ -75,9 +79,9 @@ public class GrphStructureTest {
 
         @Test
         public void labelsSetOnNodesAndEdges() {
-            Graph actual = new GrphStructure("graph", false, List.of(
-                    GrphLine.builder().node1("a").node2("b").edge("a-b").build()
-            )).toGraph();
+            GrphStructure grphStructure = GrphBuilder.builder("graph", false)
+                    .node1("a").node2("b").edge("a-b").next().grph();
+            Graph actual = grphStructure.toGraph();
 
             assertThat(actual.getId()).isEqualTo("graph");
             assertThat(actual.getNode("a")).isNotNull();
@@ -93,56 +97,46 @@ public class GrphStructureTest {
     class FromGraph {
         @Test
         public void directedNodeTest() {
-            GrphStructure expected = new GrphStructure("graph", true, List.of(
-                    GrphLine.builder().node1("a").node2("b").weight(1).build()
-            ));
+            GrphStructure expected = GrphBuilder.builder("graph", true)
+                    .node1("a").node2("b").next().grph();
 
-            Graph graph = new MultiGraph("graph");
-            graph.setAutoCreate(true);
-            graph.setStrict(false);
-            graph.addEdge("edge", "a", "b", true);
-            assertThat(GrphStructure.from(graph)).isEqualTo(expected);
+            GrphStructure actual = GrphStructure.from(GraphBuilder.builder("graph", true)
+                    .node1("a").node2("b").done().graph());
+
+            assertThat(actual).isEqualTo(expected);
         }
 
         @Test
         public void weightedNodeTest() {
-            GrphStructure expected = new GrphStructure("graph", false, List.of(
-                    GrphLine.builder().node1("a").node2("b").weight(5).build()
-            ));
+            GrphStructure expected = GrphBuilder.builder("graph", true)
+                    .node1("a").node2("b").weight(5).next().grph();
 
-            Graph graph = new MultiGraph("graph");
-            graph.setAutoCreate(true);
-            graph.setStrict(false);
-            Edge edge = graph.addEdge("edge", "a", "b", false);
-            edge.setAttribute("weight", 5);
-            assertThat(GrphStructure.from(graph)).isEqualTo(expected);
+            GrphStructure actual = GrphStructure.from(GraphBuilder.builder("graph", true)
+                    .node1("a").node2("b").weight(5).done().graph());
+
+            assertThat(actual).isEqualTo(expected);
         }
 
         @Test
         public void nodesAttributes() {
-            GrphStructure expected = new GrphStructure("graph", true, List.of(
-                    GrphLine.builder().node1("a").attr1("atr1").node2("b").attr2("atr2").weight(1).build()
-            ));
+            GrphStructure expected = GrphBuilder.builder("graph", true)
+                    .node1("a").attr1("atr1").node2("b").attr2("atr2").next().grph();
 
-            Graph graph = new MultiGraph("graph");
-            graph.setAutoCreate(true);
-            graph.setStrict(false);
-            graph.addEdge("edge", "a", "b", true);
-            graph.getNode("a").setAttribute("attribute", "atr1");
-            graph.getNode("b").setAttribute("attribute", "atr2");
-            assertThat(GrphStructure.from(graph)).isEqualTo(expected);
+            GrphStructure actual = GrphStructure.from(GraphBuilder.builder("graph", true)
+                    .node1("a").attr1("atr1").node2("b").attr2("atr2").done().graph());
+
+            assertThat(actual).isEqualTo(expected);
         }
 
         @Test
         public void labelsOnNodes() {
-            GrphStructure expected = new GrphStructure("graph", true, List.of(
-                    GrphLine.builder().node1("a").node2("b").weight(1).edge("edge").build()
-            ));
-            Graph graph = new MultiGraph("graph");
-            graph.setAutoCreate(true);
-            graph.setStrict(false);
-            Edge edge = graph.addEdge("edge", "a", "b", true);
-            edge.setAttribute("ui.label", "edge");
+            GrphStructure expected = GrphBuilder.builder("graph", true)
+                    .node1("a").node2("b").edge("a-b").next().grph();
+
+            GrphStructure actual = GrphStructure.from(GraphBuilder.builder("graph", true)
+                    .node1("a").node2("b").edge("a-b").done().graph());
+
+            assertThat(actual).isEqualTo(expected);
         }
     }
 

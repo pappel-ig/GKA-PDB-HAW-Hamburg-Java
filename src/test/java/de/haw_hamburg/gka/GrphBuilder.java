@@ -38,7 +38,7 @@ public class GrphBuilder {
         protected String node2;
         protected String attr2;
         protected String edge;
-        protected int weight;
+        protected int weight = 1;
 
         public GrphLineBuilder attr1(String attr1) {
             this.attr1 = attr1;

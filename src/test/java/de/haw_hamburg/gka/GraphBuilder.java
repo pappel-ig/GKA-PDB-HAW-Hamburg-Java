@@ -19,6 +19,10 @@ public class GraphBuilder {
         this.directed = directed;
     }
 
+    public static GraphBuilder builder(String name, boolean directed) {
+        return new GraphBuilder(name, directed);
+    }
+
     public GraphLineBuilder node1(String node1) {
         return new GraphLineBuilder(this, graph, directed, node1);
     }
@@ -73,7 +77,7 @@ public class GraphBuilder {
                 final Edge edge = graph.addEdge(UUID.randomUUID().toString(), node1, node2, directed);
                 edge.setAttribute("weight", Math.max(this.weight, 1));
                 if (Objects.nonNull(this.attr2)) node2.setAttribute("attribute", this.attr2);
-                if (Objects.nonNull(this.edge)) edge.setAttribute("edge", this.edge);
+                if (Objects.nonNull(this.edge)) edge.setAttribute("label", this.edge);
                 edge.setAttribute("ui.label", String.valueOf(Math.max(this.weight, 1)));
                 node2.setAttribute("ui.label", node2.getId());
             }
