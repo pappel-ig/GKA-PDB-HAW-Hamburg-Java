@@ -135,10 +135,4 @@ public class GrphStructureTest {
             assertThat(actual).isEqualTo(expected);
         }
     }
-
-    @Nested
-    class WriteToMappingTest {
-        // TODO
-    }
-
 }
