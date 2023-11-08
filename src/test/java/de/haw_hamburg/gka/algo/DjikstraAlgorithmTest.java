@@ -1,17 +1,53 @@
 package de.haw_hamburg.gka.algo;
 
 import de.haw_hamburg.gka.GraphBuilder;
-import de.haw_hamburg.gka.storage.GrphGraphStorage;
 import lombok.SneakyThrows;
+import org.graphstream.algorithm.Dijkstra;
+import org.graphstream.algorithm.generator.Generator;
+import org.graphstream.algorithm.generator.RandomGenerator;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
+import org.graphstream.graph.Path;
+import org.graphstream.graph.implementations.MultiGraph;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-
-import static de.haw_hamburg.gka.TestHelper.getFile;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DjikstraAlgorithmTest {
+
+    @Nested
+    class Randomized {
+
+        @Test
+        void randomPath() {
+            DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+            Graph graf = randomGraph(100, 2, false, true);
+            Path actual = algorithm.getPathTo(graf.getNode(0), graf.getNode(graf.getNodeCount() - 1));
+            Path expected = computeBestPath(graf.getNode(0), graf.getNode(graf.getNodeCount() - 1));
+
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        private Path computeBestPath(Node start, Node end) {
+            Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "weight");
+            dijkstra.init(start.getGraph());
+            dijkstra.setSource(start);
+            return dijkstra.getPath(end);
+        }
+
+        private Graph randomGraph(int size, int averageDegree, boolean allowRemove, boolean directed) {
+            Graph graph = new MultiGraph("graph");
+            Generator generator = new RandomGenerator(averageDegree, allowRemove, directed, null, "weight");
+            generator.addSink(graph);
+            generator.begin();
+            for (int i = 0; i < size; i++) {
+                generator.nextEvents();
+            }
+            generator.end();
+            return graph;
+        }
+    }
 
     @Test
     @SneakyThrows
