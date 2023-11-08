@@ -3,12 +3,11 @@ package de.haw_hamburg.gka.gui;
 import de.haw_hamburg.gka.algo.DjikstraAlgorithm;
 import de.haw_hamburg.gka.gui.model.AbstractGraphController;
 import de.haw_hamburg.gka.gui.model.GraphControlModel;
-import de.haw_hamburg.gka.serializer.GrphGraphSerializer;
-import de.haw_hamburg.gka.serializer.GrphStructure;
+import de.haw_hamburg.gka.storage.GrphGraphStorage;
+import de.haw_hamburg.gka.storage.GrphStructure;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lombok.SneakyThrows;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -23,7 +22,7 @@ import java.util.Objects;
 
 public class GraphVisualizationController extends AbstractGraphController {
 
-    private final GrphGraphSerializer serializer = new GrphGraphSerializer();
+    private final GrphGraphStorage store = new GrphGraphStorage();
     private final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
     private Path path;
     public AnchorPane pane;
@@ -79,7 +78,7 @@ public class GraphVisualizationController extends AbstractGraphController {
 
     private void newFileChosen(ObservableValue<? extends File> observableValue, File old, File now) {
         try {
-            loadedGraph = serializer.readFrom(now).toGraph();
+            loadedGraph = store.readFrom(now).toGraph();
         } catch (FileNotFoundException ex) {
             ExceptionHelper.showErrorDialog("Datei konnte nicht geladen werden!");
             return;
@@ -96,7 +95,7 @@ public class GraphVisualizationController extends AbstractGraphController {
     private void newSaveTo(ObservableValue<? extends File> observableValue, File old, File now) {
         final GrphStructure from = GrphStructure.from(loadedGraph);
         try {
-            serializer.storeTo(from, now);
+            store.storeTo(from, now);
         } catch (FileNotFoundException e) {
             ExceptionHelper.showErrorDialog("Cant save to file");
         }

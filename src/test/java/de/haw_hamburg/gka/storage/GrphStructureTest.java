@@ -1,4 +1,4 @@
-package de.haw_hamburg.gka.serializer;
+package de.haw_hamburg.gka.storage;
 
 import de.haw_hamburg.gka.GraphBuilder;
 import de.haw_hamburg.gka.GrphBuilder;
@@ -97,7 +97,7 @@ public class GrphStructureTest {
                     .node1("a").node2("b").next().grph();
 
             GrphStructure actual = GrphStructure.from(GraphBuilder.builder("graph", true)
-                    .node1("a").node2("b").done().graph());
+                    .node1("a").node2("b").next().graph());
 
             assertThat(actual).isEqualTo(expected);
         }
@@ -108,7 +108,7 @@ public class GrphStructureTest {
                     .node1("a").node2("b").weight(5).next().grph();
 
             GrphStructure actual = GrphStructure.from(GraphBuilder.builder("graph", true)
-                    .node1("a").node2("b").weight(5).done().graph());
+                    .node1("a").node2("b").weight(5).next().graph());
 
             assertThat(actual).isEqualTo(expected);
         }
@@ -119,7 +119,7 @@ public class GrphStructureTest {
                     .node1("a").attr1("atr1").node2("b").attr2("atr2").next().grph();
 
             GrphStructure actual = GrphStructure.from(GraphBuilder.builder("graph", true)
-                    .node1("a").attr1("atr1").node2("b").attr2("atr2").done().graph());
+                    .node1("a").attr1("atr1").node2("b").attr2("atr2").next().graph());
 
             assertThat(actual).isEqualTo(expected);
         }
@@ -130,9 +130,15 @@ public class GrphStructureTest {
                     .node1("a").node2("b").edge("a-b").next().grph();
 
             GrphStructure actual = GrphStructure.from(GraphBuilder.builder("graph", true)
-                    .node1("a").node2("b").edge("a-b").done().graph());
+                    .node1("a").node2("b").edge("a-b").next().graph());
 
             assertThat(actual).isEqualTo(expected);
         }
     }
+
+    @Nested
+    class WriteToMappingTest {
+        // TODO
+    }
+
 }

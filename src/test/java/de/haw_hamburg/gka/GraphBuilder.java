@@ -15,7 +15,7 @@ public class GraphBuilder {
     private final boolean directed;
 
     public GraphBuilder(String name, boolean directed) {
-        this.graph = new MultiGraph(name);
+        this.graph = new MultiGraph(name, false, true);
         this.directed = directed;
     }
 
@@ -68,7 +68,7 @@ public class GraphBuilder {
             return this;
         }
 
-        public GraphBuilder done() {
+        public GraphBuilder next() {
             final Node node1 = graph.addNode(this.node1);
             if (Objects.nonNull(this.attr1)) node1.setAttribute("attribute", this.attr1);
             node1.setAttribute("ui.label", node1.getId());

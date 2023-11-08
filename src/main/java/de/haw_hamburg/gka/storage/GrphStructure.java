@@ -1,4 +1,4 @@
-package de.haw_hamburg.gka.serializer;
+package de.haw_hamburg.gka.storage;
 
 import de.haw_hamburg.gka.ResourceLoadHelper;
 import lombok.AllArgsConstructor;
@@ -11,8 +11,6 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 
 import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -52,17 +50,6 @@ public class GrphStructure {
             }
         }
         return graph;
-    }
-
-    public void writeTo(PrintWriter writer) {
-        writer.println(header());
-        for (GrphLine line : grphLines) {
-            writer.println(line.toString());
-        }
-    }
-
-    private String header() {
-        return String.format("#%s:%s;", directed ? "directed" : "undirected", name);
     }
 
     public static GrphStructure from(Graph graph) {

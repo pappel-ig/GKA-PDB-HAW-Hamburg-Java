@@ -1,7 +1,7 @@
 package de.haw_hamburg.gka;
 
-import de.haw_hamburg.gka.serializer.GrphLine;
-import de.haw_hamburg.gka.serializer.GrphStructure;
+import de.haw_hamburg.gka.storage.GrphLine;
+import de.haw_hamburg.gka.storage.GrphStructure;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;

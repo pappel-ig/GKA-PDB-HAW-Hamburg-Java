@@ -1,10 +1,10 @@
 package de.haw_hamburg.gka.algo;
 
-import de.haw_hamburg.gka.serializer.GrphGraphSerializer;
+import de.haw_hamburg.gka.GraphBuilder;
+import de.haw_hamburg.gka.storage.GrphGraphStorage;
 import lombok.SneakyThrows;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
-import org.graphstream.graph.Path;
 import org.junit.jupiter.api.Test;
 
 
@@ -13,12 +13,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DjikstraAlgorithmTest {
 
-    private final GrphGraphSerializer serializer = new GrphGraphSerializer();
-
     @Test
     @SneakyThrows
     public void allEdgesAreConsidered() {
-        final Graph graph = serializer.readFrom(getFile("djikstra/allEdgesAreConsidered.grph")).toGraph();
+        final Graph graph = GraphBuilder.builder("graph", true)
+                .node1("A").node2("B").weight(2).next()
+                .node1("B").node2("D").weight(2).next()
+                .node1("D").node2("E").weight(1000).next()
+                .node1("D").node2("F").weight(2).next()
+                .node1("B").node2("C").weight(100).next()
+                .node1("F").node2("C").weight(3).next()
+                .node1("A").node2("C").weight(10).next()
+                .graph();
+
         final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
@@ -40,7 +47,16 @@ public class DjikstraAlgorithmTest {
     @Test
     @SneakyThrows
     public void firstPathCanOverrideLongPath() {
-        final Graph graph = serializer.readFrom(getFile("djikstra/firstPathCanOverrideLongPath.grph")).toGraph();
+        final Graph graph = GraphBuilder.builder("graph", true)
+                .node1("A").node2("B").weight(2).next()
+                .node1("B").node2("D").weight(2).next()
+                .node1("D").node2("E").weight(1000).next()
+                .node1("D").node2("F").weight(3).next()
+                .node1("B").node2("C").weight(100).next()
+                .node1("F").node2("C").weight(3).next()
+                .node1("A").node2("C").weight(10).next()
+                .graph();
+
         final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
@@ -62,7 +78,12 @@ public class DjikstraAlgorithmTest {
     @Test
     @SneakyThrows
     public void shouldNotTraverseInDirectedGraph() {
-        final Graph graph = serializer.readFrom(getFile("djikstra/shouldNotTraverseInDirectedGraph.grph")).toGraph();
+        final Graph graph = GraphBuilder.builder("graph", true)
+                .node1("B").node2("A").next()
+                .node1("B").node2("C").next()
+                .node1("C").node2("A").next()
+                .graph();
+
         final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("C"));
 
@@ -78,7 +99,12 @@ public class DjikstraAlgorithmTest {
     @Test
     @SneakyThrows
     public void noPathExists() {
-        final Graph graph = serializer.readFrom(getFile("djikstra/noPathExists.grph")).toGraph();
+        final Graph graph = GraphBuilder.builder("graph", true)
+                .node1("A").node2("B").next()
+                .node1("C").node2("D").next()
+                .node1("D").node2("C").next()
+                .graph();
+
         final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("B"));
 
@@ -96,7 +122,15 @@ public class DjikstraAlgorithmTest {
     @Test
     @SneakyThrows
     public void twoIdealPaths() {
-        final Graph graph = serializer.readFrom(getFile("djikstra/twoIdealPaths.grph")).toGraph();
+        Graph graph = GraphBuilder.builder("graph", true)
+                .node1("A").node2("B").next()
+                .node1("A").node2("C").next()
+                .node1("B").node2("D").next()
+                .node1("C").node2("E").next()
+                .node1("D").node2("F").next()
+                .node1("E").node2("F").next()
+                .graph();
+
         final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
@@ -118,7 +152,15 @@ public class DjikstraAlgorithmTest {
     @Test
     @SneakyThrows
     public void weightShouldBeUsedInCalculation() {
-        final Graph graph = serializer.readFrom(getFile("djikstra/weightShouldBeUsedInCalculation.grph")).toGraph();
+        Graph graph = GraphBuilder.builder("graph", true)
+                .node1("A").node2("B").next()
+                .node1("A").node2("C").next()
+                .node1("B").node2("D").weight(2).next()
+                .node1("C").node2("E").next()
+                .node1("D").node2("F").next()
+                .node1("E").node2("F").next()
+                .graph();
+
         final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
