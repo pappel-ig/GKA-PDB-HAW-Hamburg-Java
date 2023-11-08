@@ -2,13 +2,9 @@ package de.haw_hamburg.gka.serializer;
 
 import de.haw_hamburg.gka.GraphBuilder;
 import de.haw_hamburg.gka.GrphBuilder;
-import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.implementations.MultiGraph;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -138,6 +134,11 @@ public class GrphStructureTest {
 
             assertThat(actual).isEqualTo(expected);
         }
+    }
+
+    @Nested
+    class WriteToMappingTest {
+        // TODO
     }
 
 }

@@ -5,8 +5,6 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static de.haw_hamburg.gka.TestHelper.getFile;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -116,15 +114,5 @@ public class GrphGraphSerializerTest {
                 serializer.readFrom(getFile("grph/errorFormatInBody.grph"));
             });
         }
-    }
-
-    @Nested
-    class ToFile {
-
-        @Test
-        public void directedNodes() {
-
-        }
-
     }
 }
