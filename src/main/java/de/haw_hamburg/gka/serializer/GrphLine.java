@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.graphstream.graph.Edge;
 
+import java.util.Objects;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,7 +27,18 @@ public class GrphLine {
                 .node2(edge.getNode1().getId())
                 .attr2(edge.getNode1().getAttribute("attribute", String.class))
                 .weight(edge.hasAttribute("weight") ? edge.getAttribute("weight", Integer.class) : 1)
-                .edge(edge.getAttribute("ui.label", String.class))
+                .edge(edge.getAttribute("label", String.class))
                 .build();
+    }
+
+    @Override
+    public String toString() {
+        String node1 = this.node1;
+        String attr1 = Objects.nonNull(this.attr1) ? String.format(":%s", this.attr1) : "";
+        String node2 = Objects.nonNull(this.node2) ? String.format("-%s", this.node2) : "";
+        String attr2 = Objects.nonNull(this.attr2) ? String.format(":%s", this.attr2) : "";
+        String edge = Objects.nonNull(this.edge) ? String.format(" (%s)", this.edge) : "";
+        String weight = this.weight != 1 ? String.format("::%d", this.weight) : "";
+        return String.format("%s%s%s%s%s%s;", node1, attr1, node2, attr2, edge, weight);
     }
 }

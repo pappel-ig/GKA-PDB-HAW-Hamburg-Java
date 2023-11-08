@@ -3,10 +3,7 @@ package de.haw_hamburg.gka.serializer;
 import lombok.RequiredArgsConstructor;
 import org.graphstream.graph.Graph;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -22,6 +19,14 @@ public class GrphGraphSerializer {
         graphScanner.useDelimiter(System.lineSeparator());
         final GrphFileParser parser = new GrphFileParser(graphScanner);
         return parser.parseGrphFile();
+    }
+
+    public void storeTo(GrphStructure structure, File file) throws FileNotFoundException {
+        try (FileWriter fw = new FileWriter(file)) {
+            structure.writeTo(new PrintWriter(fw));
+        } catch (IOException ex) {
+            throw new FileNotFoundException("Could not find File");
+        }
     }
 
     @RequiredArgsConstructor

@@ -4,14 +4,19 @@ import de.haw_hamburg.gka.gui.model.AbstractGraphController;
 import de.haw_hamburg.gka.gui.model.GraphControlModel;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 import org.graphstream.graph.Node;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Objects;
 
 public class GraphControlsController extends AbstractGraphController {
@@ -19,6 +24,7 @@ public class GraphControlsController extends AbstractGraphController {
     public ChoiceBox<Node> target;
     public ChoiceBox<Node> source;
     public Button loadFile;
+    public Button saveFile;
 
     @Override
     public void setModel(GraphControlModel model, Stage stage) {
@@ -41,9 +47,24 @@ public class GraphControlsController extends AbstractGraphController {
     public void openFile() {
         final FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Graph auswählen");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Graph (.grph)", "*.grph"));
         final File chosen = fileChooser.showOpenDialog(stage);
         if (Objects.nonNull(chosen)) {
             model.getFile().setValue(chosen);
+        } else {
+            ExceptionHelper.showInfoDialog("Es wurde keine Datei selektiert -> keine Datei geladen");
+        }
+    }
+
+    @SneakyThrows
+    public void saveFile() {
+        if (Objects.nonNull(model.getFile().get())) {
+            File file = model.getFile().get();
+            Path parent = file.toPath().getParent();
+            File newFile = parent.resolve(file.getName().replaceAll(".grph", "") + "_formatted.grph").toFile();
+            model.getSaveTo().set(newFile);
+        } else {
+            ExceptionHelper.showErrorDialog("Es wurde keine Datei geladen!");
         }
     }
 }

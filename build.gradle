@@ -26,6 +26,7 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
     testImplementation 'org.projectlombok:lombok:1.18.26'
     testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation 'org.mockito:mockito-core:5.7.0'
 }
 
 mainClassName = 'de.haw_hamburg.gka.GraphDjikstraApplication'

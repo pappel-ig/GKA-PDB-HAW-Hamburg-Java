@@ -10,6 +10,5 @@ public class TestHelper {
     public static File getFile(String name) {
         return new File(TestHelper.class.getClassLoader().getResource(name).toURI());
     }
-
 }
 

@@ -16,9 +16,19 @@ import java.io.File;
 public class GraphControlModel {
 
     private ObjectProperty<File> file = new SimpleObjectProperty<>();
+    private ObjectProperty<File> saveTo = new SimpleObjectProperty<>();
     private ObservableList<Node> nodes = FXCollections.observableArrayList();
     private ObjectProperty<Node> source = new SimpleObjectProperty<>();
     private ObjectProperty<Node> target = new SimpleObjectProperty<>();
     private IntegerProperty length = new SimpleIntegerProperty();
+
+    public void reset() {
+        file.set(null);
+        saveTo.set(null);
+        source.set(null);
+        target.set(null);
+        length.set(0);
+        nodes.clear();
+    }
 
 }

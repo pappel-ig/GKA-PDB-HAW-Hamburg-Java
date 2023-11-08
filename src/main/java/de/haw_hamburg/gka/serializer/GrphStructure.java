@@ -10,6 +10,8 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -43,12 +45,24 @@ public class GrphStructure {
                 // set attribute
                 if (Objects.nonNull(line.getAttr2())) node2.setAttribute("attribute", line.getAttr2());
                 // set edge label
+                if (Objects.nonNull(line.getEdge())) edge.setAttribute("edge", line.getEdge());
                 edge.setAttribute("ui.label", String.valueOf(Math.max(line.getWeight(), 1)));
                 // set label for node2
                 node2.setAttribute("ui.label", node2.getId());
             }
         }
         return graph;
+    }
+
+    public void writeTo(PrintWriter writer) {
+        writer.println(header());
+        for (GrphLine line : grphLines) {
+            writer.println(line.toString());
+        }
+    }
+
+    private String header() {
+        return String.format("#%s:%s;", directed ? "directed" : "undirected", name);
     }
 
     public static GrphStructure from(Graph graph) {
