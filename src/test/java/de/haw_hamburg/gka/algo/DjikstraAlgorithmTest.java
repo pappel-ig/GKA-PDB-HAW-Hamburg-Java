@@ -10,35 +10,71 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.Path;
 import org.graphstream.graph.implementations.MultiGraph;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DjikstraAlgorithmTest {
 
     @Nested
     class Randomized {
 
-        @Test
-        void randomPath() {
+        private static Stream<Arguments> randomOptions() {
+            return Stream.of(
+                    Arguments.of(100, 5, true, true),
+                    Arguments.of(100, 5, true, false),
+                    Arguments.of(100, 5, false, true),
+                    Arguments.of(100, 5, false, false),
+                    Arguments.of(1000, 5, true, true),
+                    Arguments.of(1000, 5, true, false),
+                    Arguments.of(1000, 5, false, true),
+                    Arguments.of(1000, 5, false, false),
+                    Arguments.of(1000, 2, true, true),
+                    Arguments.of(1000, 2, true, false),
+                    Arguments.of(1000, 2, false, true),
+                    Arguments.of(1000, 2, false, false)
+            );
+        }
+
+        @MethodSource("randomOptions")
+        @ParameterizedTest
+        @SuppressWarnings("unused")
+        void randomPath(int size, int avgDegree, boolean remove, boolean directed) {
             DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
-            Graph graf = randomGraph(100, 2, false, true);
+            Graph graf = randomGraph(1000, 5, false, false);
             Path actual = algorithm.getPathTo(graf.getNode(0), graf.getNode(graf.getNodeCount() - 1));
             Path expected = computeBestPath(graf.getNode(0), graf.getNode(graf.getNodeCount() - 1));
 
-            assertThat(actual).isEqualTo(expected);
+            System.out.printf("actual: %s%n", actual);
+            System.out.printf("expect: %s%n", expected);
+
+            assertThat(calculcateTotalLength(actual)).isEqualTo(calculcateTotalLength(expected));
+            assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+        }
+
+        private int calculcateTotalLength(Path path) {
+            return path.edges().reduce(0, (integer, edge) -> integer+edge.getAttribute("weight", Integer.class), Integer::sum);
         }
 
         private Path computeBestPath(Node start, Node end) {
-            Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "weight");
+            Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, "result", "weight");
             dijkstra.init(start.getGraph());
             dijkstra.setSource(start);
+            dijkstra.compute();
             return dijkstra.getPath(end);
         }
 
         private Graph randomGraph(int size, int averageDegree, boolean allowRemove, boolean directed) {
             Graph graph = new MultiGraph("graph");
-            Generator generator = new RandomGenerator(averageDegree, allowRemove, directed, null, "weight");
+            RandomGenerator generator = new RandomGenerator(averageDegree, allowRemove, directed, null, null);
+            generator.addEdgeAttribute("weight", random -> random.nextInt(100)+1);
             generator.addSink(graph);
             generator.begin();
             for (int i = 0; i < size; i++) {

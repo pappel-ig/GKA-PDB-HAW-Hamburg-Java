@@ -2,14 +2,10 @@ package de.haw_hamburg.gka.algo;
 
 import lombok.RequiredArgsConstructor;
 import org.graphstream.graph.Edge;
-import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.Path;
 
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 @RequiredArgsConstructor
 public class DjikstraAlgorithm {
@@ -44,12 +40,18 @@ public class DjikstraAlgorithm {
 
     public Path getPathTo(Node startNode, Node endNode) {
         calculate(startNode);
-        final Path path = new Path();
         Node current = endNode;
+        Stack<Map.Entry<Node, Edge>> entries = new Stack<>();
         while (current.hasAttribute("vorgänger") && isNotStartOrEndNode(current, startNode, endNode)) {
             Node next = current.getAttribute("vorgänger", Node.class);
-            path.add(current, next.getEdgeBetween(current));
+            entries.push(Map.entry(current, next.getEdgeBetween(current)));
             current = next;
+        }
+        final Path path = new Path();
+        while (!entries.isEmpty()) {
+            Map.Entry<Node, Edge> entry = entries.pop();
+            if (path.empty()) path.add(entry.getValue().getNode0(), entry.getValue());
+            else path.add(entry.getValue());
         }
         return path;
     }

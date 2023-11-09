@@ -4,7 +4,6 @@ import de.haw_hamburg.gka.gui.model.AbstractGraphController;
 import de.haw_hamburg.gka.gui.model.GraphControlModel;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -13,8 +12,6 @@ import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import org.graphstream.graph.Node;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -45,6 +42,7 @@ public class GraphControlsController extends AbstractGraphController {
     }
 
     public void openFile() {
+        model.reset();
         final FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Graph auswählen");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Graph (.grph)", "*.grph"));

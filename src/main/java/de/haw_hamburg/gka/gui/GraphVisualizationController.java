@@ -77,6 +77,8 @@ public class GraphVisualizationController extends AbstractGraphController {
     }
 
     private void newFileChosen(ObservableValue<? extends File> observableValue, File old, File now) {
+        if (Objects.isNull(now)) return;
+
         try {
             loadedGraph = store.readFrom(now).toGraph();
         } catch (FileNotFoundException ex) {
