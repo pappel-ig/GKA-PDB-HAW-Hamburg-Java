@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DjikstraAlgorithmTest {
+public class DijkstraAlgorithmTest {
 
     @Nested
     class Randomized {
@@ -43,7 +43,7 @@ public class DjikstraAlgorithmTest {
         @MethodSource("randomOptions")
         @ParameterizedTest
         void randomPath(int size, int avgDegree, boolean remove, boolean directed) {
-            DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+            DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
             Graph graf = randomGraph(size, avgDegree, remove, directed);
             Path actual = algorithm.getPathTo(graf.getNode(0), graf.getNode(graf.getNodeCount() - 1));
             Path expected = computeBestPath(graf.getNode(0), graf.getNode(graf.getNodeCount() - 1));
@@ -94,7 +94,7 @@ public class DjikstraAlgorithmTest {
                 .node1("A").node2("C").weight(10).next()
                 .graph();
 
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
         vorgaenger(graph, "A", "A");
@@ -125,7 +125,7 @@ public class DjikstraAlgorithmTest {
                 .node1("A").node2("C").weight(10).next()
                 .graph();
 
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
         vorgaenger(graph, "A", "A");
@@ -152,7 +152,7 @@ public class DjikstraAlgorithmTest {
                 .node1("C").node2("A").next()
                 .graph();
 
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("C"));
 
         vorgaenger(graph, "A", "A");
@@ -173,7 +173,7 @@ public class DjikstraAlgorithmTest {
                 .node1("D").node2("C").next()
                 .graph();
 
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("B"));
 
         vorgaenger(graph, "A", "A");
@@ -199,7 +199,7 @@ public class DjikstraAlgorithmTest {
                 .node1("E").node2("F").next()
                 .graph();
 
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
         vorgaenger(graph, "A", "A");
@@ -229,7 +229,7 @@ public class DjikstraAlgorithmTest {
                 .node1("E").node2("F").next()
                 .graph();
 
-        final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+        final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
         algorithm.getPathTo(graph.getNode("A"), graph.getNode("F"));
 
         vorgaenger(graph, "A", "A");

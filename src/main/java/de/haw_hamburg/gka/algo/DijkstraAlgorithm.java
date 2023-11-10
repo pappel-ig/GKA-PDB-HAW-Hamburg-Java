@@ -8,7 +8,7 @@ import org.graphstream.graph.Path;
 import java.util.*;
 
 @RequiredArgsConstructor
-public class DjikstraAlgorithm {
+public class DijkstraAlgorithm {
 
     private Queue<Node> nodePriorityQueue;
 

@@ -1,6 +1,6 @@
 package de.haw_hamburg.gka.gui;
 
-import de.haw_hamburg.gka.algo.DjikstraAlgorithm;
+import de.haw_hamburg.gka.algo.DijkstraAlgorithm;
 import de.haw_hamburg.gka.gui.model.AbstractGraphController;
 import de.haw_hamburg.gka.gui.model.GraphControlModel;
 import de.haw_hamburg.gka.storage.GrphGraphStorage;
@@ -23,7 +23,7 @@ import java.util.Objects;
 public class GraphVisualizationController extends AbstractGraphController {
 
     private final GrphGraphStorage store = new GrphGraphStorage();
-    private final DjikstraAlgorithm algorithm = new DjikstraAlgorithm();
+    private final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
     private Path path;
     public AnchorPane pane;
     private Graph loadedGraph;
