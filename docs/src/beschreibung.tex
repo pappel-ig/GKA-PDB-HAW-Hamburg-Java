@@ -1,0 +1,13 @@
+Nachfolgend wird die Kernfunktionalität des Programmes beschrieben
+
+\subsection{Visualisierung von Graphen}
+Die Verarbeitung eines Graphen sowie die visuelle Darstellung in einem benutzerfreundlichen Interface werden vom System ermöglicht. Es berücksichtigt dabei sowohl parallele Kanten als auch \textit{Multigraphen}. Es ist nicht zwingend erforderlich, dass der Graph zusammenhängend ist; sämtliche \textit{Zusammenhangskomponenten} werden dargestellt. Knoten und Kanten können dabei sowohl mit einem Label als auch einer Gewichtung versehen werden, die auch in der Visualisierung ihren Platz finden.
+
+\subsection{Einlesen/Speichern der Grph Dateien}
+Die Möglichkeit, Graphen in das Programm einzulesen oder aus diesem zu speichern, ist gegeben. Die Graphen werden aus dem Dateisystem des Betriebssystems geladen und müssen einer \hyperref[sec:syntax-grph]{speziellen Syntax} folgen. Die Datei kann formatiert gespeichert werden, wodurch unnötige Leerzeichen und Zeilenumbrüche entfernt werden.
+
+\subsection{Traversierung und kürzester Pfad}
+Die Traversierung des Graphen innerhalb des Programmes ist möglich. Darüber hinaus verfügt das System über die Funktion zur Berechnung eines kürzesten Pfades mittels des Dijkstra-Algorithmus. Hierbei kann auf dem Benutzeroberfläche ein Startknoten und ein Endknoten ausgewählt werden. Anschließend erfolgt die Berechnung des kürzesten Pfades, welcher auf dem User Interface visualisiert wird.
+
+\subsection{Technische Realisierung}
+Das Programm wird in Java realisiert. Das User Interface wird in JavaFX gestaltet. Zur Visualisierung wird die \href{https://graphstream-project.org/}{Graphstream Library} verwendet

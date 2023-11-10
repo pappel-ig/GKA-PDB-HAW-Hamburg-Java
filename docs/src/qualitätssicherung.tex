@@ -1,0 +1,25 @@
+\subsection{Teststrategie}
+Beim Testen wird auf Test Driven Development (nachfolgend als TDD benannt) nach Kent Beck \cite{TDDBX2002} gesetzt. TDD bietet uns zahlreiche Vorteile:
+\begin{itemize}
+    \item Schnelles Feedback auf Änderungen/Implementierungen
+    \item Implementierung der Software \textbf{auf Basis} von Tests
+    \item Tests werden nach Anforderungen der Software geschrieben, nicht auf bereits erfolgte Implementierung
+    \item bewährte und saubere Test Strategie
+\end{itemize}
+
+\subsubsection{Vorgehen}
+Im ersten Schritt wird das Grundgerüst der Applikation aufgebaut. Die Klassen werden gemäß UML erstellt, und die Methodensignaturen werden definiert, ohne dass jedoch eine Implementierung erfolgt. Ein Beispiel für \textit{DijkstraAlgorithm.getPathTo(Node startNode, Node endNode)} könnte sein:
+\begin{lstlisting}[language=Java ,caption=Beispielhafte Konstruktion des Gerüst einer Methode,captionpos=b]
+public class DijkstraAlgorithm {
+    public Path getPathTo(Node startNode, Node endNode) {
+        throw new RuntimeException("Not Implemented");
+    }
+}
+\end{lstlisting}
+Diese Implementierung fungiert als Grundstruktur im Test, wobei gezielt eine spezifische Funktionalität überprüft wird. Der Test sollte definitiv fehlschlagen. Erst nachdem die entsprechende Methode implementiert wurde, wird der Test erfolgreich (grün). Im Idealfall übernimmt eine andere Person die Implementierung und setzt letztendlich die Methode um.
+
+\subsection{Zufäll-basierte Tests}
+Zur zusätzlichen Überprüfung des implementierten Dijkstra-Algorithmus wurde beschlossen, die Referenzimplementierung von Dijkstra im Graphstream mit der eigenständig entwickelten Lösung zu vergleichen. Zu diesem Zweck werden zufällig generierte Graphen unterschiedlicher Größe und Variation verwendet, und beide Algorithmen berechnen den kürzesten Pfad zwischen zwei ebenfalls zufällig ausgewählten Knoten. Dieser wird dann mittels Assertions miteinander verglichen
+
+\subsection{Testabdeckung}
+Die Testabdeckung wird mithilfe eines Coverage-Tools überwacht. Jede Methode soll eine vollständige Abdeckung aufweisen, wobei jede Zeile im Code stets mit einer Abdeckung von mindestens 80 Prozent überprüft werden sollte.
