@@ -2,6 +2,7 @@ package de.haw_hamburg.gka.algo;
 
 import lombok.RequiredArgsConstructor;
 import org.graphstream.graph.Edge;
+import org.graphstream.graph.Element;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.Path;
 
@@ -62,14 +63,21 @@ public class DijkstraAlgorithm {
     }
 
     private int getDistanceBetweenNode(Node u, Node v) {
-        return abstand(u) + weight(u.getEdgeBetween(v));
+        return abstand(u) + weight(getMinEdgeBetween(u, v));
+    }
+
+    private Edge getMinEdgeBetween(Node u, Node v) {
+        return u.leavingEdges()
+                .filter(edge -> edge.getNode0().equals(v) || edge.getNode1().equals(v))
+                .min(Comparator.comparingInt(this::weight))
+                .orElseThrow();
     }
 
     private int abstand(Node node) {
         return node.getAttribute("abstand", Integer.class);
     }
 
-    private int weight(Edge edge) {
+    private int weight(Element edge) {
         return edge.getAttribute("weight", Integer.class);
     }
 }

@@ -247,6 +247,21 @@ public class DijkstraAlgorithmTest {
         entfernung(graph, "F", 3);
     }
 
+    @Test
+    @SneakyThrows
+    public void parallelEdges() {
+        Graph graph = GraphBuilder.builder("graph", false)
+                .node1("A").node2("B").weight(5).next()
+                .node1("A").node2("B").weight(2).next()
+                .graph();
+
+        final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
+        algorithm.getPathTo(graph.getNode("A"), graph.getNode("B"));
+
+        vorgaenger(graph, "B", "A");
+        entfernung(graph, "B", 2);
+    }
+
     private void vorgaenger(Graph graph, String node, String expectedVorgaenger) {
         assertThat(graph.getNode(node).getAttribute("vorgänger", Node.class)).isEqualTo(graph.getNode(expectedVorgaenger));
     }
