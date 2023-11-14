@@ -50,7 +50,7 @@ public class GraphControlsController extends AbstractGraphController {
         if (Objects.nonNull(chosen)) {
             model.getFile().setValue(chosen);
         } else {
-            ExceptionHelper.showInfoDialog("Es wurde keine Datei selektiert -> keine Datei geladen");
+            UIModal.showInfoDialog("Es wurde keine Datei selektiert -> keine Datei geladen");
         }
     }
 
@@ -60,9 +60,10 @@ public class GraphControlsController extends AbstractGraphController {
             File file = model.getFile().get();
             Path parent = file.toPath().getParent();
             File newFile = parent.resolve(file.getName().replaceAll(".grph", "") + "_formatted.grph").toFile();
+            UIModal.showInfoDialog(String.format("Die Datei wurde unter '%s' gespeichert!", newFile.getPath()));
             model.getSaveTo().set(newFile);
         } else {
-            ExceptionHelper.showErrorDialog("Es wurde keine Datei geladen!");
+            UIModal.showErrorDialog("Es wurde keine Datei geladen!");
         }
     }
 }

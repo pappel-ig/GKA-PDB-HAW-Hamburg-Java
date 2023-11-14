@@ -2,7 +2,7 @@ package de.haw_hamburg.gka.gui;
 
 import javafx.scene.control.Alert;
 
-public class ExceptionHelper {
+public class UIModal {
 
     public static void showInfoDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

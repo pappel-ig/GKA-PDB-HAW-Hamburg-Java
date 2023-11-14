@@ -19,6 +19,7 @@ public class GraphDjikstraApplication extends Application {
     public void start(Stage primaryStage) {
         final FXMLLoader myLoader = new FXMLLoader(getClass().getResource("/gui/mainView.fxml"));
         primaryStage.setScene(new Scene(myLoader.load()));
+        primaryStage.setTitle("GKA Graph Explorer");
         final MainViewController controller = myLoader.getController();
         controller.initialize(primaryStage);
         primaryStage.show();

@@ -82,7 +82,7 @@ public class GraphVisualizationController extends AbstractGraphController {
         try {
             loadedGraph = store.readFrom(now).toGraph();
         } catch (FileNotFoundException ex) {
-            ExceptionHelper.showErrorDialog("Datei konnte nicht geladen werden!");
+            UIModal.showErrorDialog("Datei konnte nicht geladen werden!");
             return;
         }
         for (Node node : loadedGraph) {
@@ -99,7 +99,7 @@ public class GraphVisualizationController extends AbstractGraphController {
         try {
             store.storeTo(from, now);
         } catch (FileNotFoundException e) {
-            ExceptionHelper.showErrorDialog("Cant save to file");
+            UIModal.showErrorDialog("Cant save to file");
         }
     }
 }
