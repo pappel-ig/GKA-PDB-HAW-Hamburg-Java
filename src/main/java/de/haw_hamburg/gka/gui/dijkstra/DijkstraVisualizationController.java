@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
-public class GraphVisualizationControllerDijkstra extends AbstractController<DijkstraModel> {
+public class DijkstraVisualizationController extends AbstractController<DijkstraModel> {
 
     private final GrphGraphStorage store = new GrphGraphStorage();
     private final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();

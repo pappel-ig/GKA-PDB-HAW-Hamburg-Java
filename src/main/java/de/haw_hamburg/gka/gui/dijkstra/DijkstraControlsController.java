@@ -16,7 +16,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Objects;
 
-public class GraphControlsControllerDijkstra extends AbstractController<DijkstraModel> {
+public class DijkstraControlsController extends AbstractController<DijkstraModel> {
     public Label length;
     public ChoiceBox<Node> target;
     public ChoiceBox<Node> source;

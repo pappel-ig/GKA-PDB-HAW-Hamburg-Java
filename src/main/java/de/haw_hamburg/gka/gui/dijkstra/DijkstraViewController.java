@@ -5,14 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class DijkstraViewControllerDijkstra extends AbstractController<DijkstraModel> {
+public class DijkstraViewController extends AbstractController<DijkstraModel> {
 
     @FXML public AnchorPane dijkstraView;
     @FXML public AnchorPane graphControls;
     @FXML public AnchorPane graphVisualization;
 
-    @FXML public GraphControlsControllerDijkstra graphControlsController;
-    @FXML public GraphVisualizationControllerDijkstra graphVisualizationController;
+    @FXML public DijkstraControlsController graphControlsController;
+    @FXML public DijkstraVisualizationController graphVisualizationController;
 
     @Override
     public void setModel(DijkstraModel model, Stage stage) {

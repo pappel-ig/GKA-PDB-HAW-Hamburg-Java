@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.haw_hamburg.gka.gui.dijkstra.GraphControlsControllerDijkstra">
+<AnchorPane prefHeight="600.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.haw_hamburg.gka.gui.dijkstra.DijkstraControlsController">
    <Button fx:id="loadFile" layoutX="34.0" layoutY="65.0" mnemonicParsing="false" onAction="#openFile" prefHeight="26.0" prefWidth="180.0" text="Graph laden" />
    <Label alignment="CENTER" layoutX="33.0" layoutY="14.0" prefHeight="18.0" prefWidth="180.0" text="Graph" textAlignment="CENTER">
       <font>
