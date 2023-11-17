@@ -1,4 +1,4 @@
-package de.haw_hamburg.gka.gui.model;
+package de.haw_hamburg.gka.gui.dijkstra.model;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -13,7 +13,7 @@ import java.io.File;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GraphControlModel {
+public class DijkstraGraphControlModel {
 
     private ObjectProperty<File> file = new SimpleObjectProperty<>();
     private ObjectProperty<File> saveTo = new SimpleObjectProperty<>();

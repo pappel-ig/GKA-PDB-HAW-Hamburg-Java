@@ -5,12 +5,22 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.haw_hamburg.gka.gui.MainViewController">
-    <SplitPane dividerPositions="0.25" prefHeight="600.0" prefWidth="1000.0">
-        <AnchorPane minHeight="0.0" minWidth="0.0">
-            <fx:include fx:id="graphControls" source="graphControls.fxml"/>
-        </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-            <fx:include fx:id="graphVisualization" source="graphVisualization.fxml"/>
-        </AnchorPane>
-    </SplitPane>
+    <TabPane prefHeight="600.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Dijkstra">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <fx:include source="dijkstra/dijkstraView.fxml" fx:id="dijkstraView"/>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Kruskal">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <fx:include source="kruskal/kruskalView.fxml" fx:id="kruskalView"/>
+                    </AnchorPane>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
 </AnchorPane>

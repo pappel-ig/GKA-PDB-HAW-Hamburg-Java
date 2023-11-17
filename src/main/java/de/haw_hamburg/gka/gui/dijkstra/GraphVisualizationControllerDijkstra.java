@@ -1,8 +1,9 @@
-package de.haw_hamburg.gka.gui;
+package de.haw_hamburg.gka.gui.dijkstra;
 
 import de.haw_hamburg.gka.algo.DijkstraAlgorithm;
-import de.haw_hamburg.gka.gui.model.AbstractGraphController;
-import de.haw_hamburg.gka.gui.model.GraphControlModel;
+import de.haw_hamburg.gka.gui.UIModal;
+import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraAbstractGraphController;
+import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraGraphControlModel;
 import de.haw_hamburg.gka.storage.GrphGraphStorage;
 import de.haw_hamburg.gka.storage.GrphStructure;
 import javafx.beans.value.ObservableValue;
@@ -20,7 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
-public class GraphVisualizationController extends AbstractGraphController {
+public class GraphVisualizationControllerDijkstra extends DijkstraAbstractGraphController {
 
     private final GrphGraphStorage store = new GrphGraphStorage();
     private final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
@@ -28,7 +29,7 @@ public class GraphVisualizationController extends AbstractGraphController {
     public AnchorPane pane;
     private Graph loadedGraph;
     @Override
-    public void setModel(GraphControlModel model, Stage stage) {
+    public void setModel(DijkstraGraphControlModel model, Stage stage) {
         super.setModel(model, stage);
         model.getFile().addListener(this::newFileChosen);
         model.getSource().addListener(this::newSourceChosen);

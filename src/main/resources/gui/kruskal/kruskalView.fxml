@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.SplitPane?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="KruskalViewPane"
+            fx:controller="de.haw_hamburg.gka.gui.kruskal.KruskalViewController"
+            prefHeight="400.0" prefWidth="600.0">
+    <SplitPane dividerPositions="0.25" prefHeight="600.0" prefWidth="1000.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0">
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+        </AnchorPane>
+    </SplitPane>
+</AnchorPane>
+
