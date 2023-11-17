@@ -1,12 +1,11 @@
 package de.haw_hamburg.gka.gui.dijkstra;
 
-import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraAbstractController;
-import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraModel;
+import de.haw_hamburg.gka.gui.AbstractController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class DijkstraViewControllerDijkstra extends DijkstraAbstractController {
+public class DijkstraViewControllerDijkstra extends AbstractController<DijkstraModel> {
 
     @FXML public AnchorPane dijkstraView;
     @FXML public AnchorPane graphControls;

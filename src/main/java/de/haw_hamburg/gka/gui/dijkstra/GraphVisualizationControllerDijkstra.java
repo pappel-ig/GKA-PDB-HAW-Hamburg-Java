@@ -1,9 +1,8 @@
 package de.haw_hamburg.gka.gui.dijkstra;
 
 import de.haw_hamburg.gka.algo.DijkstraAlgorithm;
+import de.haw_hamburg.gka.gui.AbstractController;
 import de.haw_hamburg.gka.gui.UIModal;
-import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraAbstractController;
-import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraModel;
 import de.haw_hamburg.gka.storage.GrphGraphStorage;
 import de.haw_hamburg.gka.storage.GrphStructure;
 import javafx.beans.value.ObservableValue;
@@ -21,7 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
-public class GraphVisualizationControllerDijkstra extends DijkstraAbstractController {
+public class GraphVisualizationControllerDijkstra extends AbstractController<DijkstraModel> {
 
     private final GrphGraphStorage store = new GrphGraphStorage();
     private final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();

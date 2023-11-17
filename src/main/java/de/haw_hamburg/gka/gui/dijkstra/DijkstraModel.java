@@ -1,4 +1,4 @@
-package de.haw_hamburg.gka.gui.dijkstra.model;
+package de.haw_hamburg.gka.gui.dijkstra;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
