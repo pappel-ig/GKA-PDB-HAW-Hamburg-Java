@@ -2,8 +2,8 @@ package de.haw_hamburg.gka.gui.dijkstra;
 
 import de.haw_hamburg.gka.algo.DijkstraAlgorithm;
 import de.haw_hamburg.gka.gui.UIModal;
-import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraAbstractGraphController;
-import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraGraphControlModel;
+import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraAbstractController;
+import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraModel;
 import de.haw_hamburg.gka.storage.GrphGraphStorage;
 import de.haw_hamburg.gka.storage.GrphStructure;
 import javafx.beans.value.ObservableValue;
@@ -21,15 +21,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
-public class GraphVisualizationControllerDijkstra extends DijkstraAbstractGraphController {
+public class GraphVisualizationControllerDijkstra extends DijkstraAbstractController {
 
     private final GrphGraphStorage store = new GrphGraphStorage();
     private final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
     private Path path;
     public AnchorPane pane;
     private Graph loadedGraph;
+    private FxViewer fxViewer;
+
     @Override
-    public void setModel(DijkstraGraphControlModel model, Stage stage) {
+    public void setModel(DijkstraModel model, Stage stage) {
         super.setModel(model, stage);
         model.getFile().addListener(this::newFileChosen);
         model.getSource().addListener(this::newSourceChosen);
@@ -79,6 +81,7 @@ public class GraphVisualizationControllerDijkstra extends DijkstraAbstractGraphC
 
     private void newFileChosen(ObservableValue<? extends File> observableValue, File old, File now) {
         if (Objects.isNull(now)) return;
+        if (Objects.nonNull(fxViewer)) fxViewer.close();
 
         try {
             loadedGraph = store.readFrom(now).toGraph();
@@ -89,7 +92,7 @@ public class GraphVisualizationControllerDijkstra extends DijkstraAbstractGraphC
         for (Node node : loadedGraph) {
             model.getNodes().add(node);
         }
-        FxViewer fxViewer = new FxViewer(loadedGraph, FxViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        fxViewer = new FxViewer(loadedGraph, FxViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         fxViewer.enableAutoLayout();
         pane.getChildren().clear();
         pane.getChildren().add((FxViewPanel) fxViewer.addDefaultView(false, new FxGraphRenderer()));
@@ -102,5 +105,10 @@ public class GraphVisualizationControllerDijkstra extends DijkstraAbstractGraphC
         } catch (FileNotFoundException e) {
             UIModal.showErrorDialog("Cant save to file");
         }
+    }
+
+    @Override
+    public void reset() {
+        if (Objects.nonNull(fxViewer)) fxViewer.close();
     }
 }

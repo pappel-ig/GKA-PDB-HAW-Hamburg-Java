@@ -1,8 +1,8 @@
 package de.haw_hamburg.gka.gui.dijkstra;
 
 import de.haw_hamburg.gka.gui.UIModal;
-import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraAbstractGraphController;
-import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraGraphControlModel;
+import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraAbstractController;
+import de.haw_hamburg.gka.gui.dijkstra.model.DijkstraModel;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Button;
@@ -17,7 +17,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Objects;
 
-public class GraphControlsControllerDijkstra extends DijkstraAbstractGraphController {
+public class GraphControlsControllerDijkstra extends DijkstraAbstractController {
     public Label length;
     public ChoiceBox<Node> target;
     public ChoiceBox<Node> source;
@@ -25,7 +25,7 @@ public class GraphControlsControllerDijkstra extends DijkstraAbstractGraphContro
     public Button saveFile;
 
     @Override
-    public void setModel(DijkstraGraphControlModel model, Stage stage) {
+    public void setModel(DijkstraModel model, Stage stage) {
         super.setModel(model, stage);
         model.getNodes().addListener(this::newNodes);
         model.getLength().addListener(this::lengthChanged);

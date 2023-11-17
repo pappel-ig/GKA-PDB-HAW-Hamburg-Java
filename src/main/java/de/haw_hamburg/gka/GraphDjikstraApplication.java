@@ -23,6 +23,9 @@ public class GraphDjikstraApplication extends Application {
         final MainViewController controller = myLoader.getController();
         controller.initialize(primaryStage);
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e -> Platform.exit());
+        primaryStage.setOnCloseRequest(e -> {
+            controller.shutdown();
+            Platform.exit();
+        });
     }
 }

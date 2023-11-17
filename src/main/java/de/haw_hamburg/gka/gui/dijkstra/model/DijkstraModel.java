@@ -13,7 +13,7 @@ import java.io.File;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DijkstraGraphControlModel {
+public class DijkstraModel {
 
     private ObjectProperty<File> file = new SimpleObjectProperty<>();
     private ObjectProperty<File> saveTo = new SimpleObjectProperty<>();
