@@ -3,6 +3,8 @@ package de.haw_hamburg.gka.gui.dijkstra;
 import de.haw_hamburg.gka.algo.DijkstraAlgorithm;
 import de.haw_hamburg.gka.gui.AbstractController;
 import de.haw_hamburg.gka.gui.UIModal;
+import de.haw_hamburg.gka.gui.common.GraphFileChooser;
+import de.haw_hamburg.gka.gui.common.GraphLoader;
 import de.haw_hamburg.gka.storage.GrphGraphStorage;
 import de.haw_hamburg.gka.storage.GrphStructure;
 import javafx.beans.value.ObservableValue;
@@ -22,16 +24,14 @@ import java.util.Objects;
 
 public class DijkstraVisualizationController extends AbstractController<DijkstraModel> {
 
-    private final GrphGraphStorage store = new GrphGraphStorage();
+
     private final DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
     private Path path;
     public AnchorPane pane;
-    private Graph loadedGraph;
-    private FxViewer fxViewer;
 
     @Override
-    public void setModel(DijkstraModel model, Stage stage) {
-        super.setModel(model, stage);
+    public void setModel(DijkstraModel model, Stage stage, GraphLoader graphLoader, GraphFileChooser graphFileChooser) {
+        super.setModel(model, stage, graphLoader, graphFileChooser);
         model.getFile().addListener(this::newFileChosen);
         model.getSource().addListener(this::newSourceChosen);
         model.getTarget().addListener(this::newTargetChosen);
@@ -79,35 +79,11 @@ public class DijkstraVisualizationController extends AbstractController<Dijkstra
     }
 
     private void newFileChosen(ObservableValue<? extends File> observableValue, File old, File now) {
-        if (Objects.isNull(now)) return;
-        if (Objects.nonNull(fxViewer)) fxViewer.close();
-
-        try {
-            loadedGraph = store.readFrom(now).toGraph();
-        } catch (FileNotFoundException ex) {
-            UIModal.showErrorDialog("Datei konnte nicht geladen werden!");
-            return;
-        }
-        for (Node node : loadedGraph) {
-            model.getNodes().add(node);
-        }
-        fxViewer = new FxViewer(loadedGraph, FxViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
-        fxViewer.enableAutoLayout();
-        pane.getChildren().clear();
-        pane.getChildren().add((FxViewPanel) fxViewer.addDefaultView(false, new FxGraphRenderer()));
+        graphLoader.renderGraph(pane, now, node -> model.getNodes().add(node), getClass());
     }
 
     private void newSaveTo(ObservableValue<? extends File> observableValue, File old, File now) {
-        final GrphStructure from = GrphStructure.from(loadedGraph);
-        try {
-            store.storeTo(from, now);
-        } catch (FileNotFoundException e) {
-            UIModal.showErrorDialog("Cant save to file");
-        }
-    }
+        graphLoader.storeGraph(getClass(), now);
 
-    @Override
-    public void reset() {
-        if (Objects.nonNull(fxViewer)) fxViewer.close();
     }
 }

@@ -2,6 +2,8 @@ package de.haw_hamburg.gka.gui.dijkstra;
 
 import de.haw_hamburg.gka.gui.AbstractController;
 import de.haw_hamburg.gka.gui.UIModal;
+import de.haw_hamburg.gka.gui.common.GraphFileChooser;
+import de.haw_hamburg.gka.gui.common.GraphLoader;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Button;
@@ -22,10 +24,11 @@ public class DijkstraControlsController extends AbstractController<DijkstraModel
     public ChoiceBox<Node> source;
     public Button loadFile;
     public Button saveFile;
+    final GraphFileChooser fileChooser = new GraphFileChooser();
 
     @Override
-    public void setModel(DijkstraModel model, Stage stage) {
-        super.setModel(model, stage);
+    public void setModel(DijkstraModel model, Stage stage, GraphLoader graphLoader, GraphFileChooser graphFileChooser) {
+        super.setModel(model, stage, graphLoader, graphFileChooser);
         model.getNodes().addListener(this::newNodes);
         model.getLength().addListener(this::lengthChanged);
         source.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> model.getSource().setValue(newValue));
@@ -43,15 +46,7 @@ public class DijkstraControlsController extends AbstractController<DijkstraModel
 
     public void openFile() {
         model.reset();
-        final FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Graph auswählen");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Graph (.grph)", "*.grph"));
-        final File chosen = fileChooser.showOpenDialog(stage);
-        if (Objects.nonNull(chosen)) {
-            model.getFile().setValue(chosen);
-        } else {
-            UIModal.showInfoDialog("Es wurde keine Datei selektiert -> keine Datei geladen");
-        }
+        model.getFile().set(fileChooser.selectFile(stage));
     }
 
     @SneakyThrows

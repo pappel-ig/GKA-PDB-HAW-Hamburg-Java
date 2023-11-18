@@ -1,6 +1,8 @@
 package de.haw_hamburg.gka.gui.dijkstra;
 
 import de.haw_hamburg.gka.gui.AbstractController;
+import de.haw_hamburg.gka.gui.common.GraphFileChooser;
+import de.haw_hamburg.gka.gui.common.GraphLoader;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -15,10 +17,10 @@ public class DijkstraViewController extends AbstractController<DijkstraModel> {
     @FXML public DijkstraVisualizationController graphVisualizationController;
 
     @Override
-    public void setModel(DijkstraModel model, Stage stage) {
-        super.setModel(model, stage);
-        graphControlsController.setModel(model, stage);
-        graphVisualizationController.setModel(model, stage);
+    public void setModel(DijkstraModel model, Stage stage, GraphLoader graphLoader, GraphFileChooser graphFileChooser) {
+        super.setModel(model, stage, graphLoader, graphFileChooser);
+        graphControlsController.setModel(model, stage, graphLoader, graphFileChooser);
+        graphVisualizationController.setModel(model, stage, graphLoader, graphFileChooser);
     }
 
     @Override

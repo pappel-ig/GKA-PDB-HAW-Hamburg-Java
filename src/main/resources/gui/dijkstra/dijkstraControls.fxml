@@ -29,5 +29,5 @@
    </Label>
    <Label layoutX="28.0" layoutY="312.0" text="Länge:" />
    <Label fx:id="length" layoutX="79.0" layoutY="312.0" />
-   <Button fx:id="saveFile" layoutX="157.0" layoutY="561.0" mnemonicParsing="false" onAction="#saveFile" text="Speichern" />
+   <Button fx:id="saveFile" layoutX="158.0" layoutY="533.0" mnemonicParsing="false" onAction="#saveFile" text="Speichern" />
 </AnchorPane>
